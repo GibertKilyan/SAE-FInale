@@ -56,6 +56,13 @@ namespace TstSAE
         List<Image> lesSpikeMan = new List<Image>();
         Image abeille;
 
+        //maretau//
+        public BitmapImage[] Marteaudroite;
+        public BitmapImage[] Marteaugauche;
+        bool lancer = false;
+        int indiceMarteau;
+        public static readonly double PASMARTEAU = 7;
+
         //vie//
         int nbVie = 3;
         Image[] lesvies;
@@ -256,14 +263,14 @@ namespace TstSAE
             for (int i = 0; i < 7; i++)
 
             {
-                bobDroiteMarteau[i] = new BitmapImage(new Uri($"pack://application:,,,/BOB/Marteau_droite/bob_droite_marteau{i + 1}.png"));
+                bobDroiteMarteau[i] = new BitmapImage(new Uri($"pack://application:,,,/BOB/Bob_droite/bob_droite_marteau{i + 1}.png"));
             }
 
             bobGaucheMarteau = new BitmapImage[7];
             for (int i = 0; i < 7; i++)
 
             {
-                bobGaucheMarteau[i] = new BitmapImage(new Uri($"pack://application:,,,/BOB/Marteau_gauche/bob_gauche_marteau{i + 1}.png"));
+                bobGaucheMarteau[i] = new BitmapImage(new Uri($"pack://application:,,,/BOB/Bob_gauche/bob_gauche_marteau{i + 1}.png"));
             }
         }
         //initialisation ennemis//
@@ -317,6 +324,22 @@ namespace TstSAE
             lesvies[1] = vie2;
             lesvies[2] = vie3;
         }
+
+        //initialisation marteau//
+        private void InitMarteauImage()
+        {
+            Marteaudroite = new BitmapImage[4];
+            for (int i = 0; i < 4; i++)
+            {
+                Marteaudroite[i] = new BitmapImage(new Uri($"pack://application:,,,/Image personnage/marteau/marteau{i}.png"));
+            }
+            Marteaugauche = new BitmapImage[4];
+            for (int i = 0; i < 4; i++)
+            {
+                Marteaugauche[i] = new BitmapImage(new Uri($"pack://application:,,,/Bob/marteau_gauche/marteau_inv{i}.png"));
+            }
+        }
+
         //timer//
         private void jeuTimer()
         {
@@ -469,6 +492,33 @@ namespace TstSAE
                         finDuJeuMonde1();
                     }
                 }
+                double posmart = Canvas.GetLeft(Marteau);
+                double newposmart = posmart;
+
+                if (lancer == true)
+                {
+                    if (RegardeDroite == false)
+                    {
+                        indiceMarteau++;
+                        if (indiceMarteau == 4)
+                        {
+                            indiceMarteau = 0;
+                        }
+                        Marteau.Source = Marteaugauche[indiceMarteau];
+                        newposmart = posmart - PASMARTEAU;
+                    }
+                    else
+                    {
+                        indiceMarteau++;
+                        if (indiceMarteau == 4)
+                        {
+                            indiceMarteau = 0;
+                        }
+                        Marteau.Source = Marteaudroite[indiceMarteau];
+                        newposmart = posmart + PASMARTEAU;
+                    }
+                }
+                Canvas.SetLeft(Marteau, newposmart);
             }
         }
         //bouton//
@@ -530,6 +580,11 @@ namespace TstSAE
                     temps.Stop();
                     pause = true;
                 }
+            }
+            if (e.Key == Key.F)
+            {
+
+                lancer = true;
             }
         }
         //fin du jeu//
