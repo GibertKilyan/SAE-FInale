@@ -583,7 +583,6 @@ namespace TstSAE
             }
             if (e.Key == Key.F)
             {
-
                 lancer = true;
             }
         }
