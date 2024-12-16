@@ -522,7 +522,11 @@ namespace TstSAE
 
                 if (lancer == true)
                 {
-                        marteau.Visibility = Visibility.Visible;
+                    Canvas.SetLeft(marteau, newPosBob);
+                    Canvas.SetTop(marteau, CanvaFond.ActualHeight - HAUTEURBOBMONDE1);
+                    marteau.Visibility = Visibility.Visible;
+                    
+
                         indiceMarteau++;
                         if (indiceMarteau == 4)
                         {
@@ -537,8 +541,6 @@ namespace TstSAE
                 if (Canvas.GetLeft(marteau) > CanvaFond.ActualWidth)
                 {
                     lancer = false;
-                    Canvas.SetLeft(marteau, MILIEUMONDE1);
-                    Canvas.SetTop(marteau, CanvaFond.ActualHeight - HAUTEURBOBMONDE1);
                     marteau.Visibility = Visibility.Hidden;
                 }
             }
@@ -607,7 +609,7 @@ namespace TstSAE
             if (e.Key == Key.F)
             {
                 lancer = true;
-
+                
 
             }
         }
