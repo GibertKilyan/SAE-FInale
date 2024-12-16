@@ -506,17 +506,13 @@ namespace TstSAE
                 if (lancer == true)
                 {
                     marteau.Visibility = Visibility.Visible;
-                    if (regardDroite == false)
-                    {
                         indiceMarteau++;
                         if (indiceMarteau == 4)
                         {
                             indiceMarteau = 0;
                         }
                         marteau.Source = Marteaugauche[indiceMarteau];
-                        newposmart = posmart - PASMARTEAU;
-                    }
-                    
+                    newposmart = posmart - PASMARTEAU;          
                 }
                 Canvas.SetLeft(marteau, newposmart);
             }
