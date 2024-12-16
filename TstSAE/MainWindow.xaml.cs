@@ -56,12 +56,13 @@ namespace TstSAE
         List<Image> lesSpikeMan = new List<Image>();
         Image abeille;
 
-        //maretau//
-        public BitmapImage[] Marteaudroite;
+        //marteau//
+        
         public BitmapImage[] Marteaugauche;
         bool lancer = false;
         int indiceMarteau;
         public static readonly double PASMARTEAU = 7;
+        Image marteau;
 
         //vie//
         int nbVie = 3;
@@ -83,6 +84,7 @@ namespace TstSAE
 
             InitializeComponent();
             InitBobImage();
+            InitMarteauImage();
             InitImageEnnemis();
 
             stackVie.Visibility = Visibility.Hidden;
@@ -213,7 +215,17 @@ namespace TstSAE
                 CanvaFond.Children.Add(spikeM);
                 Canvas.SetLeft(spikeM, nouveauX);
                 Canvas.SetTop(spikeM, CanvaFond.ActualHeight - HAUTEURSPIKEMAN);
+                
             }
+            marteau = new Image();
+            marteau.Source = Marteaugauche[0];
+            marteau.Width = Marteaugauche[0].Width;
+            marteau.Height = Marteaugauche[0].Height;
+
+            CanvaFond.Children.Add(marteau);
+            Canvas.SetLeft(marteau, MILIEUMONDE1);
+            Canvas.SetTop(marteau, CanvaFond.ActualHeight - HAUTEURBOBMONDE1);
+            marteau.Visibility = Visibility.Hidden;
 
             positionInitialAbeille = new double[nbAbeilles];
             for (int i = 0; i < nbAbeilles; i++)
@@ -328,11 +340,7 @@ namespace TstSAE
         //initialisation marteau//
         private void InitMarteauImage()
         {
-            Marteaudroite = new BitmapImage[4];
-            for (int i = 0; i < 4; i++)
-            {
-                Marteaudroite[i] = new BitmapImage(new Uri($"pack://application:,,,/Image personnage/marteau/marteau{i}.png"));
-            }
+            
             Marteaugauche = new BitmapImage[4];
             for (int i = 0; i < 4; i++)
             {
@@ -492,33 +500,25 @@ namespace TstSAE
                         finDuJeuMonde1();
                     }
                 }
-                double posmart = Canvas.GetLeft(Marteau);
+                double posmart = Canvas.GetLeft(marteau);
                 double newposmart = posmart;
 
                 if (lancer == true)
                 {
-                    if (RegardeDroite == false)
+                    marteau.Visibility = Visibility.Visible;
+                    if (regardDroite == false)
                     {
                         indiceMarteau++;
                         if (indiceMarteau == 4)
                         {
                             indiceMarteau = 0;
                         }
-                        Marteau.Source = Marteaugauche[indiceMarteau];
+                        marteau.Source = Marteaugauche[indiceMarteau];
                         newposmart = posmart - PASMARTEAU;
                     }
-                    else
-                    {
-                        indiceMarteau++;
-                        if (indiceMarteau == 4)
-                        {
-                            indiceMarteau = 0;
-                        }
-                        Marteau.Source = Marteaudroite[indiceMarteau];
-                        newposmart = posmart + PASMARTEAU;
-                    }
+                    
                 }
-                Canvas.SetLeft(Marteau, newposmart);
+                Canvas.SetLeft(marteau, newposmart);
             }
         }
         //bouton//
