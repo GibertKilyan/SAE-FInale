@@ -1,0 +1,73 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="background\fond_départ.png" />
+    <None Remove="background\Logo.png" />
+    <None Remove="background\monde1.png" />
+    <None Remove="background\monde2.jpg" />
+    <None Remove="BOB\accroupi\bob_accroupi_droit.png" />
+    <None Remove="BOB\accroupi\bob_accroupi_gauche.png" />
+    <None Remove="BOB\accroupi\bob_droite_accroupi_marteau.png" />
+    <None Remove="BOB\accroupi\bob_gauche_accroupi_marteau.png" />
+    <None Remove="BOB\bob_arrêt.png" />
+    <None Remove="BOB\Marteau_droite\bob_droite_marteau1.png" />
+    <None Remove="BOB\Marteau_droite\bob_droite_marteau2.png" />
+    <None Remove="BOB\Marteau_droite\bob_droite_marteau3.png" />
+    <None Remove="BOB\Marteau_droite\bob_droite_marteau4.png" />
+    <None Remove="BOB\Marteau_droite\bob_droite_marteau5.png" />
+    <None Remove="BOB\Marteau_droite\bob_droite_marteau6.png" />
+    <None Remove="BOB\Marteau_droite\bob_droite_marteau7.png" />
+    <None Remove="BOB\Marteau_gauche\bob_gauche_marteau1.png" />
+    <None Remove="BOB\Marteau_gauche\bob_gauche_marteau2.png" />
+    <None Remove="BOB\Marteau_gauche\bob_gauche_marteau3.png" />
+    <None Remove="BOB\Marteau_gauche\bob_gauche_marteau4.png" />
+    <None Remove="BOB\Marteau_gauche\bob_gauche_marteau5.png" />
+    <None Remove="BOB\Marteau_gauche\bob_gauche_marteau6.png" />
+    <None Remove="BOB\Marteau_gauche\bob_gauche_marteau7.png" />
+    <None Remove="ennemis\abeille_bas.png" />
+    <None Remove="ennemis\abeille_haut.png" />
+    <None Remove="ennemis\spikeMan_depart.png" />
+    <None Remove="ennemis\spikeMan_marche.png" />
+    <None Remove="vie\coeur_plein.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="background\fond_départ.png" />
+    <Resource Include="background\Logo.png" />
+    <Resource Include="background\monde1.png" />
+    <Resource Include="background\monde2.jpg" />
+    <Resource Include="BOB\accroupi\bob_accroupi_droit.png" />
+    <Resource Include="BOB\accroupi\bob_accroupi_gauche.png" />
+    <Resource Include="BOB\accroupi\bob_droite_accroupi_marteau.png" />
+    <Resource Include="BOB\accroupi\bob_gauche_accroupi_marteau.png" />
+    <Resource Include="BOB\bob_arrêt.png" />
+    <Resource Include="BOB\Marteau_droite\bob_droite_marteau1.png" />
+    <Resource Include="BOB\Marteau_droite\bob_droite_marteau2.png" />
+    <Resource Include="BOB\Marteau_droite\bob_droite_marteau3.png" />
+    <Resource Include="BOB\Marteau_droite\bob_droite_marteau4.png" />
+    <Resource Include="BOB\Marteau_droite\bob_droite_marteau5.png" />
+    <Resource Include="BOB\Marteau_droite\bob_droite_marteau6.png" />
+    <Resource Include="BOB\Marteau_droite\bob_droite_marteau7.png" />
+    <Resource Include="BOB\Marteau_gauche\bob_gauche_marteau1.png" />
+    <Resource Include="BOB\Marteau_gauche\bob_gauche_marteau2.png" />
+    <Resource Include="BOB\Marteau_gauche\bob_gauche_marteau3.png" />
+    <Resource Include="BOB\Marteau_gauche\bob_gauche_marteau4.png" />
+    <Resource Include="BOB\Marteau_gauche\bob_gauche_marteau5.png" />
+    <Resource Include="BOB\Marteau_gauche\bob_gauche_marteau6.png" />
+    <Resource Include="BOB\Marteau_gauche\bob_gauche_marteau7.png" />
+    <Resource Include="ennemis\abeille_bas.png" />
+    <Resource Include="ennemis\abeille_haut.png" />
+    <Resource Include="ennemis\spikeMan_depart.png" />
+    <Resource Include="ennemis\spikeMan_marche.png" />
+    <Resource Include="vie\coeur_plein.png" />
+  </ItemGroup>
+
+</Project>
