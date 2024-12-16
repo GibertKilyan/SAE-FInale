@@ -87,7 +87,9 @@ namespace TstSAE
             InitMarteauImage();
             InitImageEnnemis();
 
-            stackVie.Visibility = Visibility.Hidden;
+            vie1.Visibility = Visibility.Hidden;
+            vie2.Visibility = Visibility.Hidden;
+            vie3.Visibility = Visibility.Hidden;
             stackReset.Visibility = Visibility.Hidden;
 
             blockTemps.Visibility = Visibility.Hidden;
@@ -99,7 +101,9 @@ namespace TstSAE
         private void ButMonde1_Click(object sender, RoutedEventArgs e)
         {
             stackBoutonLogo.Visibility = Visibility.Hidden;
-            stackVie.Visibility = Visibility.Visible;
+            vie1.Visibility = Visibility.Visible;
+            vie2.Visibility = Visibility.Visible;
+            vie3.Visibility = Visibility.Visible;
             stackReset.Visibility = Visibility.Visible;
 
             blockTemps.Visibility = Visibility.Visible;
@@ -127,7 +131,9 @@ namespace TstSAE
         private void retour_Click(object sender, RoutedEventArgs e)
         {
             stackBoutonLogo.Visibility = Visibility.Visible;
-            stackVie.Visibility = Visibility.Hidden;
+            vie1.Visibility = Visibility.Hidden;
+            vie2.Visibility = Visibility.Hidden;
+            vie3.Visibility = Visibility.Hidden;
             stackReset.Visibility = Visibility.Hidden;
             blockTemps.Visibility = Visibility.Hidden;
 
@@ -145,6 +151,8 @@ namespace TstSAE
 
             pause = false;
             accroupi = false;
+            droite = false;
+            gauche = false;
 
             nbVie = 3;
             tmps = 0;
@@ -168,6 +176,8 @@ namespace TstSAE
 
             pause = false;
             accroupi = false;
+            droite = false;
+            gauche = false;
 
             Monde1();
         }
@@ -500,21 +510,37 @@ namespace TstSAE
                         finDuJeuMonde1();
                     }
                 }
+                
+         //marteau//       
                 double posmart = Canvas.GetLeft(marteau);
                 double newposmart = posmart;
 
+                System.Drawing.Rectangle RMarteau = new System.Drawing.Rectangle((int)Canvas.GetLeft(marteau) + 70,
+                (int)Canvas.GetTop(marteau),
+                (int)marteau.Width,
+                (int)marteau.Height);
+
                 if (lancer == true)
                 {
-                    marteau.Visibility = Visibility.Visible;
+                        marteau.Visibility = Visibility.Visible;
                         indiceMarteau++;
                         if (indiceMarteau == 4)
                         {
                             indiceMarteau = 0;
                         }
                         marteau.Source = Marteaugauche[indiceMarteau];
-                    newposmart = posmart - PASMARTEAU;          
+                    newposmart = posmart - PASMARTEAU;
+                    
                 }
+
                 Canvas.SetLeft(marteau, newposmart);
+                if (Canvas.GetLeft(marteau) > CanvaFond.ActualWidth)
+                {
+                    lancer = false;
+                    Canvas.SetLeft(marteau, MILIEUMONDE1);
+                    Canvas.SetTop(marteau, CanvaFond.ActualHeight - HAUTEURBOBMONDE1);
+                    marteau.Visibility = Visibility.Hidden;
+                }
             }
         }
         //bouton//
@@ -531,6 +557,7 @@ namespace TstSAE
                 droite = false;
                 enDeplacement = false;
             }
+            
         }
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
@@ -580,6 +607,8 @@ namespace TstSAE
             if (e.Key == Key.F)
             {
                 lancer = true;
+
+
             }
         }
         //fin du jeu//
@@ -591,7 +620,9 @@ namespace TstSAE
 
             if (result == MessageBoxResult.Yes)
             {
-                stackVie.Visibility = Visibility.Visible;
+                vie1.Visibility = Visibility.Visible;
+                vie2.Visibility = Visibility.Visible;
+                vie3.Visibility = Visibility.Visible;
 
                 minuteur.Stop();
                 temps.Stop();
@@ -603,6 +634,8 @@ namespace TstSAE
                 tmps = 0;
                 blockTemps.Text = "Temps : " + TimeSpan.FromSeconds(tmps);
 
+                droite = false;
+                gauche = false;
                 pause = false;
                 accroupi = false;
                 lesSpikeMan.Clear();
