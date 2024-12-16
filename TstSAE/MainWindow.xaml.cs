@@ -59,11 +59,12 @@ namespace TstSAE
         //marteau//
         
         public BitmapImage[] Marteaugauche;
-        bool lancer = false;
+        bool lancer = false, deplacementMarteau = false;
         int indiceMarteau;
         public static readonly double PASMARTEAU = 7;
         Image marteau;
-
+        //score//
+        int nbScore = 0;
         //vie//
         int nbVie = 3;
         Image[] lesvies;
@@ -453,12 +454,14 @@ namespace TstSAE
                 Canvas.SetLeft(lesSpikeMan[i], newPosEnnemi);
 
                 if (Canvas.GetLeft(lesSpikeMan[i]) > CanvaFond.ActualWidth)
+                {
                     Canvas.SetLeft(lesSpikeMan[i], alea.Next(-1000, -100));
-
+                }
                 System.Drawing.Rectangle rSpikeMan = new System.Drawing.Rectangle((int)Canvas.GetLeft(lesSpikeMan[i]),
                 (int)Canvas.GetTop(lesSpikeMan[i]),
                 (int)lesSpikeMan[i].Width,
                 (int)lesSpikeMan[i].Height);
+
 
                 if (rSpikeMan.IntersectsWith(RBob))
                 {
@@ -515,35 +518,71 @@ namespace TstSAE
                 double posmart = Canvas.GetLeft(marteau);
                 double newposmart = posmart;
 
-                System.Drawing.Rectangle RMarteau = new System.Drawing.Rectangle((int)Canvas.GetLeft(marteau) + 70,
+                System.Drawing.Rectangle rMarteau = new System.Drawing.Rectangle((int)Canvas.GetLeft(marteau) + 70,
                 (int)Canvas.GetTop(marteau),
                 (int)marteau.Width,
                 (int)marteau.Height);
 
+                System.Drawing.Rectangle rSpikeMan = new System.Drawing.Rectangle((int)Canvas.GetLeft(lesSpikeMan[i]),
+                (int)Canvas.GetTop(lesSpikeMan[i]),
+                (int)lesSpikeMan[i].Width,
+                (int)lesSpikeMan[i].Height);
+
+
+
                 if (lancer == true)
                 {
-                    Canvas.SetLeft(marteau, newPosBob);
-                    Canvas.SetTop(marteau, CanvaFond.ActualHeight - HAUTEURBOBMONDE1);
+
+
+
                     marteau.Visibility = Visibility.Visible;
-                    
-
-                        indiceMarteau++;
-                        if (indiceMarteau == 4)
-                        {
-                            indiceMarteau = 0;
-                        }
-                        marteau.Source = Marteaugauche[indiceMarteau];
+                    deplacementMarteau = true;
+                    indiceMarteau++;
+                    if (indiceMarteau == 4)
+                    {
+                        indiceMarteau = 0;
+                    }
+                    marteau.Source = Marteaugauche[indiceMarteau];
                     newposmart = posmart - PASMARTEAU;
-                    
-                }
+                    Canvas.SetLeft(marteau, newposmart);
 
-                Canvas.SetLeft(marteau, newposmart);
-                if (Canvas.GetLeft(marteau) > CanvaFond.ActualWidth)
-                {
-                    lancer = false;
-                    marteau.Visibility = Visibility.Hidden;
+                    if (Canvas.GetLeft(marteau) > CanvaFond.ActualWidth || Canvas.GetLeft(marteau) + marteau.Width < 0)
+                    {
+                        lancer = false;
+                        deplacementMarteau = false;
+                        marteau.Visibility = Visibility.Hidden;  
+                       
+                    }
+                    
+
                 }
+                if (rSpikeMan.IntersectsWith(rMarteau))
+                {
+                    Canvas.SetLeft(lesSpikeMan[i], alea.Next(-1000, -100));
+                    lancer = false;
+                    deplacementMarteau = false;
+                    marteau.Visibility = Visibility.Hidden;
+                    nbScore = nbScore + 1;
+
+                    /*if (nbVie >= 1)
+                    {
+                        lesvies[nbVie - 1].Visibility = Visibility.Hidden;
+                        nbVie--;
+                    }
+                    else
+                    {
+                        finDuJeuMonde1();
+                    }*/
+                }
+                else  if (Canvas.GetLeft(marteau) > CanvaFond.ActualWidth || Canvas.GetLeft(marteau) + marteau.Width < 0)
+                    {
+                        lancer = false;
+                        deplacementMarteau = false;
+                        marteau.Visibility = Visibility.Hidden;
+
+                    }
             }
+
         }
         //bouton//
         private void Window_KeyUp(object sender, KeyEventArgs e)
@@ -563,58 +602,56 @@ namespace TstSAE
         }
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Q)
-            {
-                gauche = true;
-                enDeplacement = true;
-                regardDroite = false;
-                accroupi = false;
-            }
-
-            if (e.Key == Key.D)
-            {
-                droite = true;
-                enDeplacement = true;
-                regardDroite = true;
-                accroupi = false;
-            }
-
-            if (e.Key == Key.Space)
-            {
-                if (accroupi == true)
+            
+                if (e.Key == Key.Q)
                 {
+                    gauche = true;
+                    enDeplacement = true;
+                    regardDroite = false;
                     accroupi = false;
                 }
-                else if (accroupi == false)
-                {
-                    accroupi = true;
-                }
-            }
 
-            if (e.Key == Key.Escape)
-            {
-                if(pause == true)
+                if (e.Key == Key.D)
                 {
-                    minuteur.Start();
-                    temps.Start();
-                    pause = false;
+                    droite = true;
+                    enDeplacement = true;
+                    regardDroite = true;
+                    accroupi = false;
                 }
-                else if (pause == false)
+
+                if (e.Key == Key.Space)
                 {
-                    minuteur.Stop();
-                    temps.Stop();
-                    pause = true;
+                    accroupi = !accroupi; 
                 }
-            }
-            if (e.Key == Key.F)
+
+                if (e.Key == Key.Escape)
+                {
+                    if (pause == true)
+                    {
+                        minuteur.Start();
+                        temps.Start();
+                        pause = false;
+                    }
+                    else if (pause == false)
+                    {
+                        minuteur.Stop();
+                        temps.Stop();
+                        pause = true;
+                    }
+                }
+
+            if (e.Key == Key.F && !deplacementMarteau)
             {
-                lancer = true;
                 
-
+                lancer = true;
+                deplacementMarteau = true;
+                marteau.Visibility = Visibility.Visible; 
+                Canvas.SetLeft(marteau, Canvas.GetLeft(Bob));  
+                Canvas.SetTop(marteau, Canvas.GetTop(Bob) + Bob.ActualWidth -20);  
             }
         }
-        //fin du jeu//
-        private void finDuJeuMonde1()
+            //fin du jeu//
+            private void finDuJeuMonde1()
         {
             pause = true;
             MessageBoxResult result;
