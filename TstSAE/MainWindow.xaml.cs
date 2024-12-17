@@ -69,6 +69,13 @@ namespace TstSAE
         int nbVie = 3;
         Image[] lesvies;
 
+
+       
+
+
+
+
+
         //position monde 1//
         public static readonly int HAUTEURBOBMONDE1 = 418, MILIEUMONDE1 = 600, HAUTEURSPIKEMAN = 240, HAUTEURABEILLE = 440, SPAWNENNEMIS = 200;
 
@@ -559,20 +566,13 @@ namespace TstSAE
                 if (rSpikeMan.IntersectsWith(rMarteau))
                 {
                     Canvas.SetLeft(lesSpikeMan[i], alea.Next(-1000, -100));
+                    Canvas.SetLeft(marteau, Canvas.GetLeft(Bob));
                     lancer = false;
                     deplacementMarteau = false;
                     marteau.Visibility = Visibility.Hidden;
                     nbScore = nbScore + 1;
 
-                    /*if (nbVie >= 1)
-                    {
-                        lesvies[nbVie - 1].Visibility = Visibility.Hidden;
-                        nbVie--;
-                    }
-                    else
-                    {
-                        finDuJeuMonde1();
-                    }*/
+                    
                 }
                 else  if (Canvas.GetLeft(marteau) > CanvaFond.ActualWidth || Canvas.GetLeft(marteau) + marteau.Width < 0)
                     {

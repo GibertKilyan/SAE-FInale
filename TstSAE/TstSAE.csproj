@@ -44,7 +44,14 @@
     <None Remove="ennemis\abeille_haut.png" />
     <None Remove="ennemis\spikeMan_depart.png" />
     <None Remove="ennemis\spikeMan_marche.png" />
+    <None Remove="Son\musique-jeu.mp3" />
     <None Remove="vie\coeur_plein.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Son\musique-jeu.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
