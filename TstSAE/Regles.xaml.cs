@@ -29,5 +29,10 @@ namespace TstSAE
             this.DialogResult = true;
             MainWindow.OPTION = 0;
         }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }

@@ -465,6 +465,7 @@ namespace TstSAE
                 if (rSpikeMan.IntersectsWith(rMarteau))
                 {
                     Canvas.SetLeft(lesSpikeMan[i], alea.Next(-1000, -100));
+                    Canvas.SetLeft(marteau, Canvas.GetLeft(Bob));
                     lancer = false;
                     deplacementMarteau = false;
                     marteau.Visibility = Visibility.Hidden;
@@ -500,6 +501,7 @@ namespace TstSAE
                 {
                     Canvas.SetTop(lesAbeillesHaut[i], -40);
                     Canvas.SetLeft(lesAbeillesHaut[i], alea.Next(-1000, -100));
+                    Canvas.SetTop(marteau, Canvas.GetTop(Bob) + Bob.ActualWidth - 20);
                     nbScore = nbScore + 1;
                     blockScore.Text = "Score : " + nbScore;
                 }
@@ -567,8 +569,8 @@ namespace TstSAE
                 lancer = true;
                 deplacementMarteau = true;
                 marteau.Visibility = Visibility.Visible; 
-                Canvas.SetLeft(marteau, Canvas.GetLeft(Bob));  
-                Canvas.SetTop(marteau, Canvas.GetTop(Bob) + Bob.ActualWidth -20);  
+                 
+                 
             }
         }
             //fin du jeu//
