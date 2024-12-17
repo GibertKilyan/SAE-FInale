@@ -44,6 +44,7 @@
                 Foreground="White"
                 Text="Temps"
                 TextWrapping="Wrap" />
+            <TextBlock x:Name="blockScore" Width="200" Height="30" HorizontalAlignment="Left" Text="Score : 0" FontSize="18" Foreground="White"/>
         </StackPanel>
         <StackPanel
             x:Name="stackVie"
