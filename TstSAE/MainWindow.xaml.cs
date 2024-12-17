@@ -69,13 +69,6 @@ namespace TstSAE
         int nbVie = 3;
         Image[] lesvies;
 
-
-       
-
-
-
-
-
         //position monde 1//
         public static readonly int HAUTEURBOBMONDE1 = 418, MILIEUMONDE1 = 600, HAUTEURSPIKEMAN = 240, HAUTEURABEILLE = 440, SPAWNENNEMIS = 200;
 
@@ -115,7 +108,7 @@ namespace TstSAE
                     regles();
                 if (OPTION == 0)
                 {
-                    this.Show();
+                    Application.Current.Shutdown();
                 }
             }
         }
@@ -586,13 +579,13 @@ namespace TstSAE
 
                 minuteur.Stop();
                 temps.Stop();
-                lesSpikeMan.Clear();
-                lesAbeillesHaut.Clear();
                 CanvaFond.Children.Clear();
 
                 nbVie = 3;
+                nbScore = 0;
                 tmps = 0;
                 blockTemps.Text = "Temps : " + TimeSpan.FromSeconds(tmps);
+                blockScore.Text = "Score : " + nbScore;
 
                 droite = false;
                 gauche = false;
