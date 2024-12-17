@@ -195,7 +195,7 @@ namespace TstSAE
 
                 do
                 {
-                    nouveauX = alea.Next(0, (int)CanvaFond.ActualWidth - (int)abeilleHaut.Width);
+                    nouveauX = alea.Next(-1000, 2200);
                 }
                 while (PositionValide(nouveauX, lesAbeillesHaut, abeilleHaut.Width));
 
@@ -309,7 +309,7 @@ namespace TstSAE
         private void chronoAccroupi()
         {
             tempsAccroupi = new DispatcherTimer();
-            tempsAccroupi.Interval = TimeSpan.FromMilliseconds(200);
+            tempsAccroupi.Interval = TimeSpan.FromMilliseconds(300);
             tempsAccroupi.Tick += arretAccroupi;
             tempsAccroupi.Start();
         }
@@ -511,7 +511,7 @@ namespace TstSAE
                 if (rAbeilleHaut.IntersectsWith(RBob) && accroupi == false)
                 {
                     Canvas.SetTop(lesAbeillesHaut[i], alea.Next(-300, 0));
-                    Canvas.SetLeft(lesAbeillesHaut[i], alea.Next(-1000, -100));
+                    Canvas.SetLeft(lesAbeillesHaut[i], alea.Next(-1000, 2200));
                     if (nbVie >= 1)
                     {
                         lesvies[nbVie - 1].Visibility = Visibility.Hidden;
@@ -525,7 +525,7 @@ namespace TstSAE
                 if (rAbeilleHaut.IntersectsWith(RBob) && accroupi == true)
                 {
                     Canvas.SetTop(lesAbeillesHaut[i], -40);
-                    Canvas.SetLeft(lesAbeillesHaut[i], alea.Next(-1000, -100));                    
+                    Canvas.SetLeft(lesAbeillesHaut[i], alea.Next(-1000, 2200));                    
                     nbScore = nbScore + 1;
                     blockScore.Text = "Score : " + nbScore;
                 }
@@ -597,19 +597,21 @@ namespace TstSAE
                         pause = true;
                     }
                 }
+        }
 
-            if (e.Key == Key.F && !deplacementMarteau)
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (Mouse.LeftButton == MouseButtonState.Pressed && !deplacementMarteau && regardDroite == false)
             {
-                
+
                 lancer = true;
                 deplacementMarteau = true;
                 marteau.Visibility = Visibility.Visible;
                 Canvas.SetTop(marteau, Canvas.GetTop(Bob) + Bob.ActualWidth - 20);
-
-
             }
         }
-            //fin du jeu//
+
+        //fin du jeu//
         private void finDuJeuMonde1()
         {
             pause = true;
