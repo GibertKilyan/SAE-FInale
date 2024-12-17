@@ -12,7 +12,7 @@
     KeyUp="Window_KeyUp"
     ResizeMode="NoResize"
     WindowState="Maximized"
-    mc:Ignorable="d" Loaded="Window_Loaded">
+    mc:Ignorable="d" Loaded="Window_Loaded" MouseDown="Window_MouseDown">
     <Window.Resources>
         <Style x:Key="BoutonArrondi" TargetType="Button">
             <Setter Property="Template">
