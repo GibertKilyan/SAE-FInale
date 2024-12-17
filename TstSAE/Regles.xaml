@@ -9,8 +9,17 @@
     <Grid>
         <Button x:Name="ButOk" Content="OK" HorizontalAlignment="Center" Margin="0,326,0,0" VerticalAlignment="Top" Width="30" Height="20" Click="ButOk_Click"/>
         <StackPanel Height="380" Width="600">
-            <TextBox HorizontalAlignment="Center" Margin="0,37,0,0" TextWrapping="Wrap" Text="REGLES DU JEU" VerticalAlignment="Top" Width="101" TextChanged="TextBox_TextChanged" FontFamily="72 Black" Background="White" BorderBrush="White"/>
-            <TextBox HorizontalAlignment="Left" Margin="74,104,0,0" TextWrapping="Wrap" Text="Q - Aller a gauche" VerticalAlignment="Top" Width="101" TextChanged="TextBox_TextChanged" FontFamily="72 Black" Background="White" BorderBrush="White"/>
+            <TextBox HorizontalAlignment="Center" Margin="0,20,0,0" TextWrapping="Wrap" Text="REGLES DU JEU" VerticalAlignment="Top" Width="101" TextChanged="TextBox_TextChanged" FontFamily="72 Black" Background="White" BorderBrush="White"/>
+            <TextBox HorizontalAlignment="Center" Margin="0,45,400,0" TextWrapping="Wrap" Text="TOUCHES" Width="85" TextChanged="TextBox_TextChanged" FontFamily="72 Black" Background="White" BorderBrush="#FF150D0D" Height="21" FontSize="16"/>
+            <TextBox TextWrapping="Wrap" Text="Q - Aller a gauche" Width="484" TextChanged="TextBox_TextChanged" FontFamily="72 Black" Background="White" BorderBrush="White" Margin="0,20,40,0" Height="15"/>
+            <TextBox TextWrapping="Wrap" Text="D - Aller a droite" Width="484" TextChanged="TextBox_TextChanged" FontFamily="72 Black" Background="White" BorderBrush="White" Margin="0,10,40,0" Height="15"/>
+            <TextBox TextWrapping="Wrap" Text="Espace - S'accroupir" Width="484" TextChanged="TextBox_TextChanged" FontFamily="72 Black" Background="White" BorderBrush="White" Margin="0,10,40,0" Height="15"/>
+            <TextBox TextWrapping="Wrap" Text="F - Lancer le marteau" Width="484" TextChanged="TextBox_TextChanged" FontFamily="72 Black" Background="White" BorderBrush="White" Margin="0,10,40,0" Height="15"/>
+            <TextBox HorizontalAlignment="Center" Margin="0,-240,-300,0" TextWrapping="Wrap" Text="TOUCHES" Width="85" TextChanged="TextBox_TextChanged" FontFamily="72 Black" Background="White" BorderBrush="#FF150D0D" Height="21" FontSize="16"/>
+            <TextBox TextWrapping="Wrap" Text="Q - Aller a gauche" Width="117" TextChanged="TextBox_TextChanged" FontFamily="72 Black" Background="White" BorderBrush="White" Margin="0,-170,-300,0" Height="15"/>
+            <TextBox TextWrapping="Wrap" Text="D - Aller a droite" Width="108" TextChanged="TextBox_TextChanged" FontFamily="72 Black" Background="White" BorderBrush="White" Margin="0,10,-300,0" Height="15"/>
+            <TextBox TextWrapping="Wrap" Text="Espace - S'accroupir" Width="128" TextChanged="TextBox_TextChanged" FontFamily="72 Black" Background="White" BorderBrush="White" Margin="0,10,-300,0" Height="15"/>
+            <TextBox TextWrapping="Wrap" Text="F - Lancer le marteau" Width="132" TextChanged="TextBox_TextChanged" FontFamily="72 Black" Background="White" BorderBrush="White" Margin="0,10,-300,0" Height="15"/>
         </StackPanel>
     </Grid>
 </Window>
