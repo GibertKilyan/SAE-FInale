@@ -8,6 +8,9 @@
         Title="Regles" Height="400" Width="600" VerticalAlignment="Center" HorizontalAlignment="Center" WindowStartupLocation="CenterScreen">
     <Grid>
         <Button x:Name="ButOk" Content="OK" HorizontalAlignment="Center" Margin="0,326,0,0" VerticalAlignment="Top" Width="30" Height="20" Click="ButOk_Click"/>
-        <TextBox HorizontalAlignment="Center" Margin="0,37,0,0" TextWrapping="Wrap" Text="REGLES DU JEU" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged" FontFamily="Algerian" Background="White" BorderBrush="White"/>
+        <StackPanel Height="380" Width="600">
+            <TextBox HorizontalAlignment="Center" Margin="0,37,0,0" TextWrapping="Wrap" Text="REGLES DU JEU" VerticalAlignment="Top" Width="101" TextChanged="TextBox_TextChanged" FontFamily="72 Black" Background="White" BorderBrush="White"/>
+            <TextBox HorizontalAlignment="Left" Margin="74,104,0,0" TextWrapping="Wrap" Text="Q - Aller a gauche" VerticalAlignment="Top" Width="101" TextChanged="TextBox_TextChanged" FontFamily="72 Black" Background="White" BorderBrush="White"/>
+        </StackPanel>
     </Grid>
 </Window>
