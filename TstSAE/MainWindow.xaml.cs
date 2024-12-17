@@ -112,10 +112,6 @@ namespace TstSAE
             {
                 if (OPTION == -1)
                     regles();
-                if (OPTION == 0)
-                {
-                    Application.Current.Shutdown();
-                }
             }
         }
         private void regles()
