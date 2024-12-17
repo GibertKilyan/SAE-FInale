@@ -498,7 +498,7 @@ namespace TstSAE
                 {
                     Canvas.SetTop(lesAbeillesHaut[i], -40);
                     Canvas.SetLeft(lesAbeillesHaut[i], alea.Next(-1000, -100));
-                    Canvas.SetTop(marteau, Canvas.GetTop(Bob) + Bob.ActualWidth - 20);
+                    
                     nbScore = nbScore + 1;
                     blockScore.Text = "Score : " + nbScore;
                 }
@@ -565,9 +565,10 @@ namespace TstSAE
                 
                 lancer = true;
                 deplacementMarteau = true;
-                marteau.Visibility = Visibility.Visible; 
-                 
-                 
+                marteau.Visibility = Visibility.Visible;
+                Canvas.SetTop(marteau, Canvas.GetTop(Bob) + Bob.ActualWidth - 20);
+
+
             }
         }
             //fin du jeu//
