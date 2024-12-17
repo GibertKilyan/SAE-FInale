@@ -302,6 +302,10 @@ namespace TstSAE
             blockTemps.Text = "Temps : " + TimeSpan.FromSeconds(tmps);
             tmps += 1;
         }
+        private void chronoAccroupi()
+        {
+
+        }
         //ennemis vers joueur//
         private void DeplacerAbeilleVersBob(Image ennemi)
         {
