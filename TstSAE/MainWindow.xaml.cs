@@ -35,11 +35,17 @@ namespace TstSAE
         public DispatcherTimer temps;
         int tmps = 0;
 
+        //temps entre touche//
+        bool cooldown= false;
+        public DispatcherTimer tempsAttente;
+        int indiceCooldown;
+
         //Bob//
         public static BitmapImage bobAccroupiDroite, bobAccroupiGauche;
         Image Bob;
         bool gauche, droite, accroupi = false, enDeplacement = false, regardDroite = false;
-        int indiceBob;
+        int indiceBob, indiceAccroupi;
+        public DispatcherTimer tempsAccroupi;
 
         //spikeMan//
         int indiceSpikeMan;
@@ -128,6 +134,8 @@ namespace TstSAE
         //initialisation des mondes//
         public void Monde1()
         {
+            chronoAccroupi();
+            TimerCooldown();
             tempsEnJeu();
             initVie();
             jeuTimer();
@@ -304,7 +312,31 @@ namespace TstSAE
         }
         private void chronoAccroupi()
         {
-
+            tempsAccroupi = new DispatcherTimer();
+            tempsAccroupi.Interval = TimeSpan.FromMilliseconds(200);
+            tempsAccroupi.Tick += arretAccroupi;
+            tempsAccroupi.Start();
+        }
+        private void arretAccroupi(object? sender, EventArgs e)
+        {
+            indiceAccroupi += 1;
+            if (indiceAccroupi == 1)
+                indiceAccroupi = 0;
+            accroupi = false;
+        }
+        private void TimerCooldown()
+        {
+            tempsAttente = new DispatcherTimer();
+            tempsAttente.Interval = TimeSpan.FromMilliseconds(500);
+            tempsAttente.Tick += TempsAttente;
+            tempsAttente.Start();
+        }
+        private void TempsAttente(object? sender, EventArgs e)
+        {
+            indiceCooldown += 1;
+            if (indiceCooldown == 1)
+                indiceCooldown = 0;
+            cooldown = false;
         }
         //ennemis vers joueur//
         private void DeplacerAbeilleVersBob(Image ennemi)
@@ -501,6 +533,14 @@ namespace TstSAE
                     nbScore = nbScore + 1;
                     blockScore.Text = "Score : " + nbScore;
                 }
+                if (accroupi == false)
+                {
+                    tempsAccroupi.Stop();
+                }
+                if (cooldown == false)
+                {
+                    tempsAttente.Stop();
+                }
             }
         }
         //bouton//
@@ -538,9 +578,12 @@ namespace TstSAE
                     accroupi = false;
                 }
 
-                if (e.Key == Key.Space)
+                if (e.Key == Key.Space && cooldown == false)
                 {
-                    accroupi = !accroupi; 
+                    accroupi = true; 
+                    cooldown = true;
+                    tempsAttente.Start();
+                    tempsAccroupi.Start();
                 }
 
                 if (e.Key == Key.Escape)
