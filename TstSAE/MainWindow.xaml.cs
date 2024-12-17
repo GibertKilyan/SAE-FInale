@@ -21,6 +21,7 @@ namespace TstSAE
         public static BitmapImage MD1, MD2, accueil;
         public DispatcherTimer minuteur;
         private static Random alea;
+        public static int OPTION {  get; set; }
         
         
         //variable//
@@ -86,100 +87,40 @@ namespace TstSAE
             InitBobImage();
             InitMarteauImage();
             InitImageEnnemis();
-
-            vie1.Visibility = Visibility.Hidden;
-            vie2.Visibility = Visibility.Hidden;
-            vie3.Visibility = Visibility.Hidden;
-            stackReset.Visibility = Visibility.Hidden;
-
-            blockTemps.Visibility = Visibility.Hidden;
-
-            CanvaFond.Background = new ImageBrush(accueil);
         }
-
-        //clique des boutons//
-        private void ButMonde1_Click(object sender, RoutedEventArgs e)
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            stackBoutonLogo.Visibility = Visibility.Hidden;
-            vie1.Visibility = Visibility.Visible;
-            vie2.Visibility = Visibility.Visible;
-            vie3.Visibility = Visibility.Visible;
-            stackReset.Visibility = Visibility.Visible;
-
-            blockTemps.Visibility = Visibility.Visible;
-         
-            Monde1();
+            Menu();
         }
-        private void ButMonde2_Click(object sender, RoutedEventArgs e)
+        private void Menu()
         {
-            stackBoutonLogo.Visibility = Visibility.Hidden;
-            stackReset.Visibility = Visibility.Visible;
-
-            blockTemps.Visibility = Visibility.Visible;
-
-            Monde2();
-        }
-        private void RegleJeu_Click(object sender, RoutedEventArgs e)
-        {
-            Regles regle = new Regles();
-            bool? result = regle.ShowDialog();
+            this.Hide();
+            Menu Menu = new Menu();
+            bool? result = Menu.ShowDialog();
             if (result == true)
             {
-
+                Monde1();
+                this.Show();
+            }
+            else
+            {
+                if (OPTION == -1)
+                    regles();
+                if (OPTION == 0)
+                {
+                    this.Show();
+                }
             }
         }
-        private void retour_Click(object sender, RoutedEventArgs e)
+        private void regles()
         {
-            stackBoutonLogo.Visibility = Visibility.Visible;
-            vie1.Visibility = Visibility.Hidden;
-            vie2.Visibility = Visibility.Hidden;
-            vie3.Visibility = Visibility.Hidden;
-            stackReset.Visibility = Visibility.Hidden;
-            blockTemps.Visibility = Visibility.Hidden;
-
-            Image départ = new Image();
-            départ.Source = accueil;
-            départ.Width = accueil.Width;
-            départ.Height = accueil.Height;
-
-            CanvaFond.Background = new ImageBrush(accueil);
-            minuteur.Stop();
-            temps.Stop();
-            lesSpikeMan.Clear();
-            lesAbeilles.Clear();
-            CanvaFond.Children.Clear();
-
-            pause = false;
-            accroupi = false;
-            droite = false;
-            gauche = false;
-
-            nbVie = 3;
-            tmps = 0;
-            blockTemps.Text = "Temps : " + TimeSpan.FromSeconds(tmps);
-        }
-        private void butReset_Click(object sender, RoutedEventArgs e)
-        {
-            vie1.Visibility = Visibility.Visible;
-            vie2.Visibility = Visibility.Visible;
-            vie3.Visibility = Visibility.Visible;
-
-            minuteur.Stop();
-            temps.Stop();
-            lesSpikeMan.Clear();
-            lesAbeilles.Clear();
-            CanvaFond.Children.Clear();
-
-            nbVie = 3;
-            tmps = 0;
-            blockTemps.Text = "Temps : " + TimeSpan.FromSeconds(tmps);
-
-            pause = false;
-            accroupi = false;
-            droite = false;
-            gauche = false;
-
-            Monde1();
+            Regles Regles = new Regles();
+            bool? regles = Regles.ShowDialog();
+            if (regles == true)
+                Menu();
+            if (regles == false)
+                OPTION = 0;
+                Menu();
         }
 
         //initialisation des mondes//
@@ -609,8 +550,6 @@ namespace TstSAE
             if (e.Key == Key.F)
             {
                 lancer = true;
-                
-
             }
         }
         //fin du jeu//

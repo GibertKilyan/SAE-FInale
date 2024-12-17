@@ -15,19 +15,25 @@ using System.Windows.Shapes;
 namespace TstSAE
 {
     /// <summary>
-    /// Logique d'interaction pour Regles.xaml
+    /// Logique d'interaction pour Menu.xaml
     /// </summary>
-    public partial class Regles : Window
+    public partial class Menu : Window
     {
-        public Regles()
+        bool lancer;
+        public Menu()
         {
             InitializeComponent();
         }
 
-        private void ButOk_Click(object sender, RoutedEventArgs e)
+        private void butRegleJeu_Click(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = true;
-            MainWindow.OPTION = 0;
+            MainWindow.OPTION = MainWindow.OPTION - 1;
+            this.DialogResult = false;
+        }
+
+        private void butMonde1_Click(object sender, RoutedEventArgs e)
+        {
+           this.DialogResult = true;
         }
     }
 }
