@@ -497,8 +497,7 @@ namespace TstSAE
                 if (rAbeilleHaut.IntersectsWith(RBob) && accroupi == true)
                 {
                     Canvas.SetTop(lesAbeillesHaut[i], -40);
-                    Canvas.SetLeft(lesAbeillesHaut[i], alea.Next(-1000, -100));
-                    
+                    Canvas.SetLeft(lesAbeillesHaut[i], alea.Next(-1000, -100));                    
                     nbScore = nbScore + 1;
                     blockScore.Text = "Score : " + nbScore;
                 }
