@@ -118,10 +118,6 @@ namespace TstSAE
         
         }
         
-        
-
-        
-
         private void Regles()
         {
             Regles Regles = new Regles();
@@ -144,7 +140,7 @@ namespace TstSAE
                 musique.Open(new Uri(AppDomain.CurrentDomain.BaseDirectory +
                "Son/musique-jeu.mp3"));
 
-                musique.Volume = 0;
+                musique.Volume = 1;
                 musique.Play();
             }
         }
@@ -283,7 +279,7 @@ namespace TstSAE
         private void jeuTimer()
         {
             minuteurJeu = new DispatcherTimer();
-            minuteurJeu.Interval = TimeSpan.FromMilliseconds(30);
+            minuteurJeu.Interval = TimeSpan.FromMilliseconds(16);
             minuteurJeu.Tick += jeu;
             minuteurJeu.Start();
         }
@@ -584,34 +580,34 @@ namespace TstSAE
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             
-                if (e.Key == Key.Q && pause == false)
-                {
-                    gauche = true;
-                    enDeplacement = true;
-                    regardDroite = false;
-                    accroupi = false;
-                }
+             if (e.Key == Key.Q && pause == false)
+             {
+                 gauche = true;
+                 enDeplacement = true;
+                 regardDroite = false;
+                 accroupi = false;
+             }
 
-                if (e.Key == Key.D && pause == false)
-                {
-                    droite = true;
-                    enDeplacement = true;
-                    regardDroite = true;
-                    accroupi = false;
-                }
+             if (e.Key == Key.D && pause == false)
+             {
+                 droite = true;
+                 enDeplacement = true;
+                 regardDroite = true;
+                 accroupi = false;
+             }
 
-                if (e.Key == Key.Space && cooldown == false && pause == false)
-                {
-                    accroupi = true; 
-                    cooldown = true;
-                    tempsAttente.Start();
-                    tempsAccroupi.Start();
-                }
+             if (e.Key == Key.Space && cooldown == false && pause == false)
+             {
+                 accroupi = true; 
+                 cooldown = true;
+                 tempsAttente.Start();
+                 tempsAccroupi.Start();
+             }
 
-                if (e.Key == Key.Escape)
-                {
-                    Pause();
-                }
+            if (e.Key == Key.Escape)
+            {
+                 Pause();
+            }      
         }
 
         //recupère les clique de la souris
