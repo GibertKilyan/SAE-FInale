@@ -294,8 +294,7 @@ namespace TstSAE
         }
         private void acceleration(object? sender, EventArgs e)
         {
-            blockTemps.Text = "Temps : " + TimeSpan.FromSeconds(tmps);
-            tmps += 1;
+            vitesseSpikeMan += incrementVitesse;
         }
         //chrono//
         private void tempsEnJeu()
