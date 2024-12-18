@@ -27,13 +27,13 @@ namespace TstSAE
 
         private void butRegleJeu_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow.OPTION = MainWindow.OPTION - 1;
+            MainWindow.REGLEDUJEU = MainWindow.REGLEDUJEU - 1;
             this.DialogResult = false;
         }
 
-        private void butMonde1_Click(object sender, RoutedEventArgs e)
+        private void butJouer_Click(object sender, RoutedEventArgs e)
         {
-           this.DialogResult = true;
+            this.DialogResult = true;
         }
     }
 }

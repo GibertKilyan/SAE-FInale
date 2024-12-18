@@ -19,11 +19,11 @@ namespace TstSAE
     public partial class MainWindow : Window
     {
         //Variable Image//
-        private BitmapImage monde, menu;
-        private BitmapImage[] bobDroiteMarteau, bobGaucheMarteau, spikeManImages, abeillesImages, marteauImages;
+        private BitmapImage mondeJeu, fondDepart, abeillesImage;
+        private BitmapImage[] bobDroiteMarteau, bobGaucheMarteau, spikeManImages, marteauImages;
         private BitmapImage bobAccroupiDroite, bobAccroupiGauche;
         private Image[] lesVies;
-        private Image bob, spikeM, abeilleHaut, marteau;
+        private Image bob, spikeM, abeilleHaut, marteau, monde;
         private List<Image> lesSpikeMan = new List<Image>();
         private List<Image> lesAbeillesHaut = new List<Image>();
 
@@ -48,28 +48,35 @@ namespace TstSAE
         private bool lancer = false, deplacementMarteau = false;
 
         //Vitesse//
-        public static readonly int PASDEBOB = 4, PASMARTEAU = 7, PASSPIKEMAN = 3, PASABEILLE = 5;
-        public static readonly double incrementVitesse = 0.5;
-        private double vitesseSpikeMan = 1;
+        public static readonly int PASDEBOB = 5, PASMARTEAU = 7;
+        public static readonly double incrementVitesse = 1;
+        private double vitesseSpikeMan = 3;
+        double vitesseEnnemiInitial = 8; 
 
         //Random//
         private static Random alea;
 
         //variable pour que le menu potion puisse s'ouvrir et se fermer à l'infini//
-        public static int OPTION;
+        public static int REGLEDUJEU;
                    
         //musique//
         private static MediaPlayer musique;
 
         //position monde//
         public static readonly int HAUTEURBOBMONDE = 440, HAUTEURSPIKEMAN = 257;
+        public static readonly int HAUTEURALEATOIRE = -300, GAUCHEDUCANVAALEATOIRE = -1000, GAUCHECANVAALEATOIRE2 = -100,DROITEDUCANVAALEATOIRE = 2200, HAUTCANVAALEATOIRE = 0;
+
+
+
 
         public MainWindow()
         {
-            monde = new BitmapImage(new Uri("pack://application:,,,/background/monde1.png"));
-            menu = new BitmapImage(new Uri("pack://application:,,,/background/fond_départ.png"));
+            //initialisation des images qui n'ont pas besoin d'animation//
+            mondeJeu = new BitmapImage(new Uri("pack://application:,,,/background/monde1.png"));
+            fondDepart = new BitmapImage(new Uri("pack://application:,,,/background/fond_départ.png"));
             bobAccroupiDroite = new BitmapImage(new Uri("pack://application:,,,/Bob/accroupi/bob_droite_accroupi_marteau.png"));
             bobAccroupiGauche = new BitmapImage(new Uri("pack://application:,,,/Bob/accroupi/bob_gauche_accroupi_marteau.png"));
+            abeillesImage = new BitmapImage(new Uri("pack://application:,,,/ennemis/abeille_haut.png"));
             alea = new Random();
 
             InitializeComponent();
@@ -81,26 +88,43 @@ namespace TstSAE
         
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Menu();
+            //charge la fonction Menu qui correspond a la window Menu//
+            FentreDemarrage();
         }
         
-        private void Menu()
+        //Menu//
+        private void FentreDemarrage()
         {
             this.Hide();
             Menu Menu = new Menu();
             bool? result = Menu.ShowDialog();
-            if (result == true)
+
+            if (result == true) //si dans le menu la fonction monde est appuyer alors charge le monde 1
             {
-                Monde1();
+                InitialisationMonde();
                 this.Show();
             }
-            else
+            else // si le bouton règle du jeu est appuyer alors charge les règle du jeu
             {
-                if (OPTION == -1)
-                    regles();
+                if (REGLEDUJEU == -1)
+                    Regles();
             }
         
         }
+        private void Regles()
+        {
+            Regles Regles = new Regles();
+            bool? regles = Regles.ShowDialog();
+            if (regles == true)
+                FentreDemarrage();
+            if (regles == false)
+            {
+                REGLEDUJEU = 0; // recharge le menu quand le bouton ok est cliquer
+                FentreDemarrage();
+            }
+        }
+
+        //musique//
         private void InitMusique()
 
         {
@@ -108,8 +132,8 @@ namespace TstSAE
                 musique = new MediaPlayer();
                 musique.Open(new Uri(AppDomain.CurrentDomain.BaseDirectory +
                "Son/musique-jeu.mp3"));
-                
-                musique.Volume = 100;
+
+                musique.Volume = 1.0;
                 musique.Play();
             }
         }
@@ -118,21 +142,9 @@ namespace TstSAE
             musique.Position = TimeSpan.Zero;
             musique.Play();
         }
-        private void regles()
-        {
-            Regles Regles = new Regles();
-            bool? regles = Regles.ShowDialog();
-            if (regles == true)
-                Menu();
-            if (regles == false)
-            {
-                OPTION = 0;
-                Menu();
-            }
-        }
 
-        //initialisation des mondes//
-        public void Monde1()
+        //initialisation du monde//
+        public void InitialisationMonde()
         {
             chronoAccroupi();
             TimerCooldown();
@@ -141,23 +153,23 @@ namespace TstSAE
             jeuTimer();
             InitialiserTimerAcceleration();
             
+            //image de fond du monde
+            monde = new Image();
+            monde.Source = mondeJeu;
+            monde.Width = mondeJeu.Width;
+            monde.Height = mondeJeu.Height;
+            CanvaFond.Background = new ImageBrush(mondeJeu);
 
-            Image monde1 = new Image();
-            monde1.Source = monde;
-            monde1.Width = monde.Width;
-            monde1.Height = monde.Height;
-
-            CanvaFond.Background = new ImageBrush(monde);
-
+            //image de bob + place sur le canva 
             bob = new Image();
             bob.Source = bobDroiteMarteau[0];
             bob.Width = bobDroiteMarteau[0].Width;
             bob.Height = bobDroiteMarteau[0].Height;
-
             CanvaFond.Children.Add(bob);
-            Canvas.SetLeft(bob, CanvaFond.ActualWidth / 2);
+            Canvas.SetLeft(bob, CanvaFond.ActualWidth / 2); //bob au milieu du canva 
             Canvas.SetTop(bob, CanvaFond.ActualHeight - HAUTEURBOBMONDE);
 
+            //images de spikeman + place sur le canva 
             for (int i = 0; i < nbSpikeMan; i++)
             {
                 spikeM = new Image();
@@ -167,36 +179,36 @@ namespace TstSAE
 
                 lesSpikeMan.Add(spikeM);
                 CanvaFond.Children.Add(spikeM);
-                Canvas.SetLeft(spikeM, alea.Next(-1100, -100));
+                Canvas.SetLeft(spikeM, alea.Next(GAUCHEDUCANVAALEATOIRE, GAUCHECANVAALEATOIRE2));
                 Canvas.SetTop(spikeM, CanvaFond.ActualHeight - HAUTEURSPIKEMAN);
                 
             }
+            //image du marteau + place sur le canva qui sera changer plus tard au moment du lancer + cacher la marteau
             marteau = new Image();
             marteau.Source = marteauImages[0];
             marteau.Width = marteauImages[0].Width;
             marteau.Height = marteauImages[0].Height;
-
             CanvaFond.Children.Add(marteau);
-            Canvas.SetLeft(marteau, 600);
-            Canvas.SetTop(marteau, CanvaFond.ActualHeight - HAUTEURBOBMONDE);
             marteau.Visibility = Visibility.Hidden;
 
+            //images abeilles qui viennent du ciel + place sur la canva 
             for (int i = 0; i < nbHautAbeilles; i++)
             {
                 abeilleHaut = new Image();
-                abeilleHaut.Source = abeillesImages[0];
-                abeilleHaut.Width = abeillesImages[0].Width;
-                abeilleHaut.Height = abeillesImages[0].Height;
+                abeilleHaut.Source = abeillesImage;
+                abeilleHaut.Width = abeillesImage.Width;
+                abeilleHaut.Height = abeillesImage.Height;
 
                 lesAbeillesHaut.Add(abeilleHaut);
                 CanvaFond.Children.Add(abeilleHaut);
-                Canvas.SetLeft(abeilleHaut, alea.Next(-1000, 2200));
-                Canvas.SetTop(abeilleHaut, alea.Next(-300, 0));
+                Canvas.SetLeft(abeilleHaut, alea.Next(GAUCHEDUCANVAALEATOIRE, DROITEDUCANVAALEATOIRE)); //placer a gauche aléatoirement entre 1000 avant le canva et 1000 après
+                Canvas.SetTop(abeilleHaut, alea.Next(HAUTEURALEATOIRE, HAUTCANVAALEATOIRE)); //placer en haut aléatoirement entre le haut du canva et -300 au dessus du canva
             }
         }
-        //initialisation image de bob//
+        //initialisation image de bob pour animations de marche//
         private void InitBobImage()
         {
+            //image de Bob quand il va a droite
             bobDroiteMarteau = new BitmapImage[7];
             for (int i = 0; i < 7; i++)
 
@@ -204,6 +216,7 @@ namespace TstSAE
                 bobDroiteMarteau[i] = new BitmapImage(new Uri($"pack://application:,,,/BOB/Bob_droite/bob_droite_marteau{i + 1}.png"));
             }
 
+            //image de Bob quand il va a gauche
             bobGaucheMarteau = new BitmapImage[7];
             for (int i = 0; i < 7; i++)
 
@@ -211,9 +224,6 @@ namespace TstSAE
                 bobGaucheMarteau[i] = new BitmapImage(new Uri($"pack://application:,,,/BOB/Bob_gauche/bob_gauche_marteau{i + 1}.png"));
             }
         }
-       
-
-
 
         //initialisation ennemis//
         private void InitImageEnnemis()
@@ -221,6 +231,8 @@ namespace TstSAE
             spikeManImages = new BitmapImage[40];
             for (int i = 0; i < spikeManImages.Length; i++)
             {
+                //on stock ici 20 fois la même image dans les 20première case puis 20 fois une autre l'objectif est de faire une animation mais pas top rapide dans le jeu
+                //seul chose du code qui n'est normalement pas optimisé 
                 if (i <= 20)
                 {
                     spikeManImages[i] = new BitmapImage(new Uri("pack://application:,,,/ennemis/spikeman_depart.png"));
@@ -230,13 +242,12 @@ namespace TstSAE
                     spikeManImages[i] = new BitmapImage(new Uri("pack://application:,,,/ennemis/spikeman_marche.png"));
                 }
             }
-
-            abeillesImages = new BitmapImage[1];
-            abeillesImages[0] = new BitmapImage(new Uri("pack://application:,,,/ennemis/abeille_haut.png"));
         }
+
         //initialisation vie//
         private void initVie()
         {
+            //stock les 3vie présent sur la mainWindow dans un tableau
             lesVies = new Image[3];
             lesVies[0] = vie1;
             lesVies[1] = vie2;
@@ -246,6 +257,7 @@ namespace TstSAE
         //initialisation marteau//
         private void InitMarteauImage()
         {          
+            //stock les images du marteau
             marteauImages = new BitmapImage[4];
             for (int i = 0; i < 4; i++)
             {
@@ -253,7 +265,7 @@ namespace TstSAE
             }
         }
 
-        //timer//
+        //timer pour le jeu (déplacement bob, ennemis...//
         private void jeuTimer()
         {
             minuteurJeu = new DispatcherTimer();
@@ -261,7 +273,8 @@ namespace TstSAE
             minuteurJeu.Tick += jeu;
             minuteurJeu.Start();
         }
-        //timer spike man// 
+
+        //timer spikeman pour augmenter la vitesse au fil du temps// 
         private void InitialiserTimerAcceleration()
         {
             timerAcceleration = new DispatcherTimer();
@@ -272,8 +285,11 @@ namespace TstSAE
         private void acceleration(object? sender, EventArgs e)
         {
             vitesseSpikeMan += incrementVitesse;
+            if (vitesseSpikeMan == 8)
+                timerAcceleration.Stop();
         }
-        //chrono//
+
+        //chrono afficher en haut a gauche//
         private void tempsEnJeu()
         {
             chronoJeu = new DispatcherTimer();
@@ -286,6 +302,8 @@ namespace TstSAE
             blockTemps.Text = "Temps : " + TimeSpan.FromSeconds(tmps);
             tmps += 1;
         }
+
+        //Ce chrono est appeler quand on s'accroupie il fait en sorte de pouvoir rester accroupie maximum 300milisecond avant d'être automatiquement relevé//
         private void chronoAccroupi()
         {
             tempsAccroupi = new DispatcherTimer();
@@ -300,6 +318,7 @@ namespace TstSAE
                 indiceAccroupi = 0;
             accroupi = false;
         }
+        //Ce chrono est appeler quand on appuye sur la touche pour s'accroupir il met un cooldown sur la touche ce qui l'empeche de se reaccroupir directement et donc rester accroupie a l'infini
         private void TimerCooldown()
         {
             tempsAttente = new DispatcherTimer();
@@ -313,14 +332,15 @@ namespace TstSAE
             if (indiceCooldown == 1)
                 indiceCooldown = 0;
             cooldown = false;
-        }
-        
+        }       
 
-    //ennemis vers joueur//
-    private void DeplacerAbeilleVersBob(Image ennemi)
+        //abeilles fonçannt vers Bob//
+        private void DeplacerAbeilleVersBob(Image ennemi)
         {
+            //récupère la position de l'ennemi
             double posAbeilleX = Canvas.GetLeft(ennemi);
             double posAbeilleY = Canvas.GetTop(ennemi);
+            //récupère la position de Bob
             double posBobX = Canvas.GetLeft(bob);
             double posBobY = Canvas.GetTop(bob);
 
@@ -328,9 +348,8 @@ namespace TstSAE
             double directionX = posBobX - posAbeilleX;
             double directionY = posBobY - posAbeilleY;
 
-            // Normaliser le vecteur de direction
+            //Normalise le vecteur de direction
             double distance = Math.Sqrt(directionX * directionX + directionY * directionY);
-            double vitesseEnnemi = 8; // Définir la vitesse des ennemis
 
             if (distance > 0)
             {
@@ -338,10 +357,19 @@ namespace TstSAE
                 directionY /= distance;
 
                 // Déplacer l'ennemi
-                Canvas.SetLeft(ennemi, posAbeilleX + directionX * vitesseEnnemi);
-                Canvas.SetTop(ennemi, posAbeilleY + directionY * vitesseEnnemi);
+                Canvas.SetLeft(ennemi, posAbeilleX + directionX * vitesseEnnemiInitial);
+                Canvas.SetTop(ennemi, posAbeilleY + directionY * vitesseEnnemiInitial);
             }
         }
+
+
+
+
+
+
+
+
+
 
         //jeu//
         private void jeu(object? sender, EventArgs e)
@@ -442,7 +470,7 @@ namespace TstSAE
                 }
                 lesSpikeMan[i].Source = spikeManImages[indiceSpikeMan];
 
-                double newPosEnnemi = posEnnemi + PASSPIKEMAN*vitesseSpikeMan;
+                double newPosEnnemi = posEnnemi + vitesseSpikeMan;
                 Canvas.SetLeft(lesSpikeMan[i], newPosEnnemi);
 
                 if (Canvas.GetLeft(lesSpikeMan[i]) > CanvaFond.ActualWidth)
@@ -478,11 +506,6 @@ namespace TstSAE
                     marteau.Visibility = Visibility.Hidden;
                     nbScore = nbScore + 1;
                     blockScore.Text = "Score : " + nbScore;
-                    if (nbScore % 10 == 0 && nbScore > 0)
-                    {
-                        vitesseSpikeMan += incrementVitesse;
-                    }
-
                 }
             }
 
@@ -619,7 +642,7 @@ namespace TstSAE
 
                 nbVie = 3;
                 nbScore = 0;
-                vitesseSpikeMan = 0;
+                vitesseSpikeMan = 4;
                 tmps = 0;
                 blockTemps.Text = "Temps : " + TimeSpan.FromSeconds(tmps);
                 blockScore.Text = "Score : " + nbScore;
@@ -630,7 +653,7 @@ namespace TstSAE
                 accroupi = false;
                 lesSpikeMan.Clear();
                 lesAbeillesHaut.Clear();
-                Monde1();
+                InitialisationMonde();
             }
             if (result == MessageBoxResult.No)
             {

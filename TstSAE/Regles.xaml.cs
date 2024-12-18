@@ -27,7 +27,7 @@ namespace TstSAE
         private void ButOk_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = true;
-            MainWindow.OPTION = 0;
+            MainWindow.REGLEDUJEU = 0; // remet la variable a zero pour recommencer a l'infini a affachier les règles du jeu
         }
     }
 }

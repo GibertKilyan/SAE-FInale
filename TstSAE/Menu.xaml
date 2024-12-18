@@ -36,15 +36,15 @@
             Height="90"
             HorizontalAlignment="Center"
             VerticalAlignment="Top" Margin="0,300,0,0">
-            <Button x:Name="butMonde1"
+            <Button x:Name="butJouer"
                 Width="400"
                 Height="30"
                 Margin="0,0,0,25"
                 Background="Black"
-                Content="Monde 1"
+                Content="Jouer"
                 FontSize="14"
                 Foreground="White"
-                Style="{StaticResource BoutonArrondi}" Click="butMonde1_Click" />
+                Style="{StaticResource BoutonArrondi}" Click="butJouer_Click" />
             <Button x:Name="butRegleJeu"
                 Width="400"
                 Height="30"
