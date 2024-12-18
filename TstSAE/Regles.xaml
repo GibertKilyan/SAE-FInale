@@ -75,12 +75,11 @@
                 Text="Espace - S'accroupir ⏬ "
                 TextWrapping="Wrap" />
             <TextBlock
-                Width="164"
+                Width="235"
                 Height="15"
                 Margin="0,20,325,0"
-                VerticalAlignment="Bottom"
                 FontFamily="Arial Black"
-                Text="F - Lancer le marteau 🔨"
+                Text="Clic Gauche - Lancer le marteau 🔨"
                 TextWrapping="Wrap" />
             <TextBlock
                 Width="133"
@@ -96,7 +95,7 @@
                 Height="41"
                 Margin="0,-250,-300,0"
                 FontFamily="Arial Black"
-                Text=" 🖤 Vous perdez un coeur lorsque  vous touchez un ennemi"
+                Text=" 🛡️ Vous perdez une vie lorsque  vous touchez un ennemi ( 3 vie)"
                 TextWrapping="Wrap" />
             <TextBlock
                 Width="180"
