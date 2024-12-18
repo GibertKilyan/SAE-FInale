@@ -647,9 +647,9 @@ namespace TstSAE
 
             if (result == MessageBoxResult.Yes)
             {
-                vie1.Visibility = Visibility.Visible;
-                vie2.Visibility = Visibility.Visible;
-                vie3.Visibility = Visibility.Visible;
+                bouclier1.Visibility = Visibility.Visible;
+                bouclier2.Visibility = Visibility.Visible;
+                bouclier3.Visibility = Visibility.Visible;
 
                 minuteurJeu.Stop();
                 chronoJeu.Stop();

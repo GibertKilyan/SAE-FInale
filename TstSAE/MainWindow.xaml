@@ -32,7 +32,7 @@
     </Window.Resources>
     <Grid>
         <Canvas x:Name="CanvaFond" />
-        
+
         <StackPanel>
             <TextBlock
                 x:Name="blockTemps"
@@ -44,33 +44,19 @@
                 Foreground="White"
                 Text="Temps"
                 TextWrapping="Wrap" />
+
             <TextBlock x:Name="blockScore" Width="200" Height="30" HorizontalAlignment="Left" Text="Score : 0" FontSize="18" Foreground="White"/>
         </StackPanel>
         <StackPanel
             x:Name="stackVie"
-            Width="210"
+            Width="260"
             Height="100"
             HorizontalAlignment="Center"
             VerticalAlignment="Top"
             Orientation="Horizontal">
-            <Image
-                x:Name="vie3"
-                Width="72"
-                Height="60"
-                Source="/vie/coeur_plein.png"
-                Stretch="Fill" />
-            <Image
-                x:Name="vie2"
-                Width="72"
-                Height="60"
-                Source="/vie/coeur_plein.png"
-                Stretch="Fill" />
-            <Image
-                x:Name="vie1"
-                Width="72"
-                Height="60"
-                Source="/vie/coeur_plein.png"
-                Stretch="Fill" />
+            <Image x:Name="bouclier1" Source="/vie/boucliervie.png" Width="90" Height="90"  />
+            <Image x:Name="bouclier2" Source="/vie/boucliervie.png" Width="90" Height="90" />
+            <Image x:Name="bouclier3" Source="/vie/boucliervie.png" Width="90" Height="90" />
         </StackPanel>
     </Grid>
 </Window>
