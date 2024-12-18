@@ -67,7 +67,7 @@ namespace TstSAE
                    
         //musique//
         private static MediaPlayer musique;
-        private static SoundPlayer sonDegats;
+        private static MediaPlayer sondegats;
         //position monde//
         public static readonly int HAUTEURBOBMONDE = 440, HAUTEURSPIKEMAN = 257;
         public static readonly int HAUTEURALEATOIRE = -300, GAUCHEDUCANVAALEATOIRE = -1000, GAUCHECANVAALEATOIRE2 = -100,DROITEDUCANVAALEATOIRE = 2200, HAUTCANVA = 0;
@@ -90,7 +90,7 @@ namespace TstSAE
             InitMarteauImage();
             InitImageEnnemis();
             InitMusique();
-            InitSon();
+            
         }
         
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -140,16 +140,22 @@ namespace TstSAE
                 musique.Open(new Uri(AppDomain.CurrentDomain.BaseDirectory +
                "Son/musique-jeu.mp3"));
 
-                musique.Volume = 1;
+                musique.Volume = 0;
                 musique.Play();
             }
         }
         //son de degat//
         private void InitSon()
         {
-            sonDegats = new SoundPlayer(Application.GetResourceStream(
-            new Uri("pack://application:,,,/Son/sondegat.mp3")).Stream);      
-        }        
+            sondegats = new MediaPlayer();
+            sondegats.Open(new Uri(AppDomain.CurrentDomain.BaseDirectory +
+           "Son/sondegat.mp3"));
+
+            sondegats.Volume = 1;
+            sondegats.Play();
+
+        }
+        
 
         //initialisation du monde//
         public void InitialisationMonde()
@@ -490,6 +496,7 @@ namespace TstSAE
                     {
                         lesBoucliers[nbBouclier - 1].Visibility = Visibility.Hidden;
                         nbBouclier--;
+                        InitSon();
                     }
                     else
                     {
@@ -499,6 +506,7 @@ namespace TstSAE
 
                 if (rSpikeMan.IntersectsWith(rMarteau))
                 {
+                    
                     Canvas.SetLeft(lesSpikeMan[i], alea.Next(GAUCHEDUCANVAALEATOIRE, GAUCHECANVAALEATOIRE2));
                     Canvas.SetLeft(marteau, Canvas.GetLeft(bob));
                     lancer = false;
@@ -527,6 +535,7 @@ namespace TstSAE
                     {
                         lesBoucliers[nbBouclier - 1].Visibility = Visibility.Hidden;
                         nbBouclier--;
+                        InitSon();
                     }
                     else
                     {
