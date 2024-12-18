@@ -506,7 +506,6 @@ namespace TstSAE
                     marteau.Visibility = Visibility.Hidden;
                     nbScore = nbScore + 1;
                     blockScore.Text = "Score : " + nbScore;
-                    sondegats.Play();
                 }
             }
 
@@ -628,20 +627,6 @@ namespace TstSAE
             }
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         //fin du jeu//
         private void finDuJeuMonde1()
         {
@@ -670,6 +655,7 @@ namespace TstSAE
                 gauche = false;
                 pause = false;
                 accroupi = false;
+                lancer = false;
                 lesSpikeMan.Clear();
                 lesAbeillesHaut.Clear();
                 InitialisationMonde();
