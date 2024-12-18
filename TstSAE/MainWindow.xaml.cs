@@ -95,11 +95,11 @@ namespace TstSAE
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             //charge la fonction Menu qui correspond a la window Menu//
-            FentreDemarrage();
+            FenetreDemarrage();
         }
         
         //Menu//
-        private void FentreDemarrage()
+        private void FenetreDemarrage()
         {
             this.Hide();
             Menu Menu = new Menu();
@@ -117,16 +117,21 @@ namespace TstSAE
             }
         
         }
+        
+        
+
+        
+
         private void Regles()
         {
             Regles Regles = new Regles();
             bool? regles = Regles.ShowDialog();
             if (regles == true)
-                FentreDemarrage();
+                FenetreDemarrage();
             if (regles == false)
             {
                 REGLEDUJEU = 0; // recharge le menu quand le bouton ok est cliquer
-                FentreDemarrage();
+                FenetreDemarrage();
             }
         }
 
@@ -656,7 +661,7 @@ namespace TstSAE
                 minuteurJeu.Stop();
                 chronoJeu.Stop();
                 CanvaFond.Children.Clear();
-
+                
                 nbBouclier = 3;
                 nbScore = 0;
                 vitesseSpikeMan = 4;
