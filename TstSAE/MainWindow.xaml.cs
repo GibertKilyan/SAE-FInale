@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics;
+using System.Media;
 using System.Reflection.Metadata;
 using System.Security.Cryptography;
 using System.Text;
@@ -66,7 +67,7 @@ namespace TstSAE
                    
         //musique//
         private static MediaPlayer musique;
-
+        private static SoundPlayer sondegats;
         //position monde//
         public static readonly int HAUTEURBOBMONDE = 440, HAUTEURSPIKEMAN = 257;
         public static readonly int HAUTEURALEATOIRE = -300, GAUCHEDUCANVAALEATOIRE = -1000, GAUCHECANVAALEATOIRE2 = -100,DROITEDUCANVAALEATOIRE = 2200, HAUTCANVA = 0;
@@ -92,6 +93,7 @@ namespace TstSAE
             InitMarteauImage();
             InitImageEnnemis();
             InitMusique();
+            InitSon();
         }
         
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -141,15 +143,18 @@ namespace TstSAE
                 musique.Open(new Uri(AppDomain.CurrentDomain.BaseDirectory +
                "Son/musique-jeu.mp3"));
 
-                musique.Volume = 1.0;
+                musique.Volume = 1;
                 musique.Play();
             }
         }
-        private void RelanceMusique(object? sender, EventArgs e)
+        //son de degat//
+        private void InitSon()
         {
-            musique.Position = TimeSpan.Zero;
-            musique.Play();
+            sondegats = new SoundPlayer(Application.GetResourceStream(
+            new Uri("pack://application:,,,/Son/sondegat.mp3")).Stream);
+            
         }
+        
 
         //initialisation du monde//
         public void InitialisationMonde()
@@ -506,6 +511,7 @@ namespace TstSAE
                     marteau.Visibility = Visibility.Hidden;
                     nbScore = nbScore + 1;
                     blockScore.Text = "Score : " + nbScore;
+                    sondegats.Play();
                 }
             }
 

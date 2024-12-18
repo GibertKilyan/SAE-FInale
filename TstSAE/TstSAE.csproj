@@ -48,6 +48,7 @@
     <None Remove="ennemis\abeille_haut.png" />
     <None Remove="ennemis\spikeMan_depart.png" />
     <None Remove="ennemis\spikeMan_marche.png" />
+    <None Remove="Son\sondegat.mp3" />
     <None Remove="vie\boucliervie.png" />
     <None Remove="vie\coeur_plein.png" />
   </ItemGroup>
@@ -81,6 +82,7 @@
     <Resource Include="ennemis\abeille_haut.png" />
     <Resource Include="ennemis\spikeMan_depart.png" />
     <Resource Include="ennemis\spikeMan_marche.png" />
+    <Resource Include="Son\sondegat.mp3" />
     <Resource Include="vie\boucliervie.png" />
     <Resource Include="vie\coeur_plein.png" />
   </ItemGroup>
