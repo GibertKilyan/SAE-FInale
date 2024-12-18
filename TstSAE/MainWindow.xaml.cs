@@ -69,7 +69,7 @@ namespace TstSAE
         private static MediaPlayer musique;
         private static MediaPlayer sonDegats;
         //position monde//
-        public static readonly int HAUTEURBOBMONDE = 440, HAUTEURSPIKEMAN = 257;
+        public static readonly int HAUTEURBOBMONDE = 440, HAUTEURSPIKEMAN = 257, MARTEAUHORSCANVA = 3000;
         public static readonly int HAUTEURALEATOIRE = -300, GAUCHEDUCANVAALEATOIRE = -1000, GAUCHECANVAALEATOIRE2 = -100,DROITEDUCANVAALEATOIRE = 2200, HAUTCANVA = 0;
 
         //Autre variable//
@@ -87,10 +87,9 @@ namespace TstSAE
 
             InitializeComponent();
             InitBobImage();
-            InitMarteauImage();
             InitImageEnnemis();
             InitMusique();
-            
+            InitMarteauImage();
         }
         
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -165,7 +164,7 @@ namespace TstSAE
             initVie();
             jeuTimer();
             InitialiserTimerAcceleration();
-            
+
             //image de fond du monde
             monde = new Image();
             monde.Source = mondeJeu;
@@ -499,7 +498,7 @@ namespace TstSAE
                     }
                     else
                     {
-                        finDuJeuMonde1();
+                        FinDuJeuMonde();
                     }
                 }
 
@@ -507,7 +506,7 @@ namespace TstSAE
                 {
                     
                     Canvas.SetLeft(lesSpikeMan[i], alea.Next(GAUCHEDUCANVAALEATOIRE, GAUCHECANVAALEATOIRE2));
-                    Canvas.SetLeft(marteau, Canvas.GetLeft(bob));
+                    Canvas.SetLeft(marteau, MARTEAUHORSCANVA);
                     lancer = false;
                     deplacementMarteau = false;
                     marteau.Visibility = Visibility.Hidden;
@@ -538,7 +537,7 @@ namespace TstSAE
                     }
                     else
                     {
-                        finDuJeuMonde1();
+                        FinDuJeuMonde();
                     }
                 }
                 if (rAbeilleHaut.IntersectsWith(RBob) && accroupi == true)
@@ -606,18 +605,7 @@ namespace TstSAE
 
                 if (e.Key == Key.Escape)
                 {
-                    if (pause == true)
-                    {
-                        minuteurJeu.Start();
-                        chronoJeu.Start();
-                        pause = false;
-                    }
-                    else if (pause == false)
-                    {
-                        minuteurJeu.Stop();
-                        chronoJeu.Stop();
-                        pause = true;
-                    }
+                    Pause();
                 }
         }
 
@@ -634,11 +622,28 @@ namespace TstSAE
                 Canvas.SetTop(marteau, Canvas.GetTop(bob) + bob.ActualWidth - MARTEAUHITBOXBOB);
             }
         }
+        //pause//
+        private void Pause()
+        {
+            if (pause == true)
+            {
+                minuteurJeu.Stop();
+                chronoJeu.Stop();
+                pause = false;
+            }
+            else if (pause == false)
+            {
+                minuteurJeu.Start();
+                chronoJeu.Start();
+                pause = true;
+            }
+        }
 
         //fin du jeu//
-        private void finDuJeuMonde1()
+        private void FinDuJeuMonde()
         {
             pause = true;
+            Pause();
             MessageBoxResult result;
             result = MessageBox.Show("Vous avez perdu, voulez vous rejouer ? ", "rejouer", MessageBoxButton.YesNo);
 
@@ -656,16 +661,18 @@ namespace TstSAE
                 nbScore = 0;
                 vitesseSpikeMan = 4;
                 tmps = 0;
+
                 blockTemps.Text = "Temps : " + TimeSpan.FromSeconds(tmps);
                 blockScore.Text = "Score : " + nbScore;
 
                 droite = false;
                 gauche = false;
-                pause = false;
                 accroupi = false;
                 lancer = false;
+                deplacementMarteau = false;
                 lesSpikeMan.Clear();
                 lesAbeillesHaut.Clear();
+                pause = false;
                 InitialisationMonde();
             }
             if (result == MessageBoxResult.No)
