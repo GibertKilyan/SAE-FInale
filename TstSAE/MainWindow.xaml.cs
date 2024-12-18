@@ -595,8 +595,8 @@ namespace TstSAE
                 lancer = true;
                 deplacementMarteau = true;
                 marteau.Visibility = Visibility.Visible;
-                Canvas.SetLeft(marteau, Canvas.GetLeft(Bob));
-                Canvas.SetTop(marteau, Canvas.GetTop(Bob) + Bob.ActualWidth - 20);
+                Canvas.SetLeft(marteau, Canvas.GetLeft(bob));
+                Canvas.SetTop(marteau, Canvas.GetTop(bob) + bob.ActualWidth - 20);
             }
         }
 
