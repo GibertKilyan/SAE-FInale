@@ -25,7 +25,7 @@
             VerticalAlignment="Top"
             Click="ButOk_Click"
             Content="OK" />
-        <StackPanel Width="600" Margin="0,2,0,88">
+        <StackPanel Width="600" Margin="0,2,0,63">
             <StackPanel.Background>
                 <ImageBrush />
             </StackPanel.Background>
