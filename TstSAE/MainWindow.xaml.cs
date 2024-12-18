@@ -56,7 +56,7 @@ namespace TstSAE
         double vitesseEnnemiMax = 8, vitesseAbeille = 8;
 
         //HitBox//
-        private int hitBoxMarteauLeft = 70, hitBoxAbeilleTop = -120;
+        private int hitBoxMarteauLeft = 70, hitBoxAbeilleTop = 120;
 
         //Random//
         private static Random alea;
