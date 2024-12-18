@@ -51,13 +51,13 @@ namespace TstSAE
         private bool lancer = false, deplacementMarteau = false;
 
         //Vitesse//
-        public static readonly int PASDEBOB = 5, PASMARTEAU = 7;
+        public static readonly int PASDEBOB = 5, PASMARTEAU = 8;
         public static readonly double incrementVitesse = 1;
         private double vitesseSpikeMan = 3;
         double vitesseEnnemiMax = 8, vitesseAbeille = 8;
 
         //HitBox//
-        private int hitBoxMarteauLeft = 70, hitBoxAbeilleTop = 120;
+        public static readonly int HITBOXMARTEAUGAUCHE = 70, HITBOXABEILLEHAUT = 120, MARTEAUHITBOXBOB = 20;
 
         //Random//
         private static Random alea;
@@ -74,9 +74,6 @@ namespace TstSAE
 
         //Autre variable//
         private int resteBouclier = 1;
-
-
-
 
         public MainWindow()
         {
@@ -441,7 +438,7 @@ namespace TstSAE
             double posmart = Canvas.GetLeft(marteau);
             double newposmart = posmart;
 
-            System.Drawing.Rectangle rMarteau = new System.Drawing.Rectangle((int)Canvas.GetLeft(marteau) + hitBoxMarteauLeft,
+            System.Drawing.Rectangle rMarteau = new System.Drawing.Rectangle((int)Canvas.GetLeft(marteau) + HITBOXMARTEAUGAUCHE,
             (int)Canvas.GetTop(marteau),
             (int)marteau.Width,
             (int)marteau.Height);
@@ -527,7 +524,7 @@ namespace TstSAE
                 DeplacerAbeilleVersBob(lesAbeillesHaut[i]);
 
                 System.Drawing.Rectangle rAbeilleHaut = new System.Drawing.Rectangle((int)Canvas.GetLeft(lesAbeillesHaut[i]),
-                (int)Canvas.GetTop(lesAbeillesHaut[i]) - hitBoxAbeilleTop,
+                (int)Canvas.GetTop(lesAbeillesHaut[i]) - HITBOXABEILLEHAUT,
                 (int)lesAbeillesHaut[i].Width,
                 (int)lesAbeillesHaut[i].Height);
 
@@ -553,6 +550,8 @@ namespace TstSAE
                     nbScore = nbScore + 1;
                     blockScore.Text = "Score : " + nbScore;
                 }
+
+                //on lance les timer pour le cooldown de l'accroupi et pou le temps qu'il reste accroupi
                 if (accroupi == false)
                 {
                     tempsAccroupi.Stop();
@@ -563,20 +562,6 @@ namespace TstSAE
                 }               
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         //bouton//
         private void Window_KeyUp(object sender, KeyEventArgs e)
@@ -638,6 +623,7 @@ namespace TstSAE
                 }
         }
 
+        //recupère les clique de la souris
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (Mouse.LeftButton == MouseButtonState.Pressed && !deplacementMarteau && regardDroite == false && pause == false)
@@ -647,9 +633,23 @@ namespace TstSAE
                 deplacementMarteau = true;
                 marteau.Visibility = Visibility.Visible;
                 Canvas.SetLeft(marteau, Canvas.GetLeft(bob));
-                Canvas.SetTop(marteau, Canvas.GetTop(bob) + bob.ActualWidth - 20);
+                Canvas.SetTop(marteau, Canvas.GetTop(bob) + bob.ActualWidth - MARTEAUHITBOXBOB);
             }
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         //fin du jeu//
         private void finDuJeuMonde1()
