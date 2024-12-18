@@ -612,7 +612,7 @@ namespace TstSAE
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             
-                if (e.Key == Key.Q)
+                if (e.Key == Key.Q && pause == false)
                 {
                     gauche = true;
                     enDeplacement = true;
@@ -620,7 +620,7 @@ namespace TstSAE
                     accroupi = false;
                 }
 
-                if (e.Key == Key.D)
+                if (e.Key == Key.D && pause == false)
                 {
                     droite = true;
                     enDeplacement = true;
@@ -628,7 +628,7 @@ namespace TstSAE
                     accroupi = false;
                 }
 
-                if (e.Key == Key.Space && cooldown == false)
+                if (e.Key == Key.Space && cooldown == false && pause == false)
                 {
                     accroupi = true; 
                     cooldown = true;
@@ -655,7 +655,7 @@ namespace TstSAE
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (Mouse.LeftButton == MouseButtonState.Pressed && !deplacementMarteau && regardDroite == false)
+            if (Mouse.LeftButton == MouseButtonState.Pressed && !deplacementMarteau && regardDroite == false && pause == false)
             {
 
                 lancer = true;
