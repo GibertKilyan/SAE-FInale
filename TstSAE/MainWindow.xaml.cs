@@ -171,7 +171,7 @@ namespace TstSAE
 
                 lesSpikeMan.Add(spikeM);
                 CanvaFond.Children.Add(spikeM);
-                Canvas.SetLeft(spikeM, nouveauX);
+                Canvas.SetLeft(spikeM, alea.Next(-1100, -100));
                 Canvas.SetTop(spikeM, CanvaFond.ActualHeight - HAUTEURSPIKEMAN);
                 
             }
