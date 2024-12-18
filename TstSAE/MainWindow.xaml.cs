@@ -255,9 +255,9 @@ namespace TstSAE
         {
             //stock les 3vie présent sur la mainWindow dans un tableau
             lesBoucliers = new Image[3];
-            lesBoucliers[0] = vie1;
-            lesBoucliers[1] = vie2;
-            lesBoucliers[2] = vie3;
+            lesBoucliers[0] = bouclier1;
+            lesBoucliers[1] = bouclier2;
+            lesBoucliers[2] = bouclier3;
         }
 
         //initialisation marteau//
