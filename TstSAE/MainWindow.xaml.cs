@@ -18,78 +18,56 @@ namespace TstSAE
 {
     public partial class MainWindow : Window
     {
-        public static BitmapImage MD1, accueil;
-        public DispatcherTimer minuteur;
+        //Variable Image//
+        private BitmapImage monde, menu;
+        private BitmapImage[] bobDroiteMarteau, bobGaucheMarteau, spikeManImages, abeillesImages, marteauImages;
+        private BitmapImage bobAccroupiDroite, bobAccroupiGauche;
+        private Image[] lesVies;
+        private Image bob, spikeM, abeilleHaut, marteau;
+        private List<Image> lesSpikeMan = new List<Image>();
+        private List<Image> lesAbeillesHaut = new List<Image>();
+
+        //Timer//
+        private DispatcherTimer minuteurJeu, chronoJeu, tempsAttente, tempsAccroupi, timerAcceleration;
+
+        //Indices pour animation//
+        private int indiceSpikeMan, indiceBob, indiceAccroupi, indiceMarteau;
+
+        //Indices qui vont avec les Timer//
+        private int tmps = 0, indiceCooldown;
+
+        //indice collision//
+        private int nbScore = 0, nbVie = 3;
+
+        //Nombre Ennemis//
+        private int nbSpikeMan = 3, nbHautAbeilles = 2;
+
+        //booléen//
+        private bool gauche = false, droite = false, accroupi = false, enDeplacement = false, regardDroite = false;
+        private bool cooldown = false, pause = false;
+        private bool lancer = false, deplacementMarteau = false;
+
+        //Vitesse//
+        public static readonly int PASDEBOB = 4, PASMARTEAU = 7, PASSPIKEMAN = 3, PASABEILLE = 5;
+        public static readonly double incrementVitesse = 0.5;
+        private double vitesseSpikeMan = 1;
+
+        //Random//
         private static Random alea;
-        public static int OPTION {  get; set; }
-        
-        
-        //variable//
-        public static readonly double PASDEBOB = 4, PASSPIKEMAN = 3, PASABEILLE = 5, incrementVitesse = 0.5; 
-        BitmapImage[] bobDroiteMarteau, bobGaucheMarteau;
 
-        //pause//
-        bool pause = false;
-
-        //temps dans le jeu//
-        public DispatcherTimer temps;
-        int tmps = 0;
-
-        //temps entre touche//
-        bool cooldown= false;
-        public DispatcherTimer tempsAttente;
-        int indiceCooldown;
-
-        //Bob//
-        public static BitmapImage bobAccroupiDroite, bobAccroupiGauche;
-        Image Bob;
-        bool gauche, droite, accroupi = false, enDeplacement = false, regardDroite = false;
-        int indiceBob, indiceAccroupi;
-        public DispatcherTimer tempsAccroupi;
-
-        //spikeMan//
-        int indiceSpikeMan;
-        double vitesseSpikeMan = 1;
-        BitmapImage[] spikeManImages;
-        int nbSpikeMan = 3;
-        List<Image> lesSpikeMan = new List<Image>();
-        double[] positionInitialSpikeMan;
-        Image spikeM;
-
-        //Abeille haut//
-        int nbHautAbeilles = 2;
-        Image abeilleHaut;
-        List<Image> lesAbeillesHaut = new List<Image>();
-        BitmapImage[] abeillesImages;
-
-        //marteau//
-        public BitmapImage[] Marteaugauche;
-        bool lancer = false, deplacementMarteau = false;
-        int indiceMarteau;
-        public static readonly double PASMARTEAU = 7;
-        Image marteau;
-
-        //score//
-        int nbScore = 0;
-
-        //vie//
-        int nbVie = 3;
-        Image[] lesvies;
-
+        //variable pour que le menu potion puisse s'ouvrir et se fermer à l'infini//
+        public static int OPTION;
+                   
         //musique//
         private static MediaPlayer musique;
 
+        //position monde//
+        public static readonly int HAUTEURBOBMONDE = 440, HAUTEURSPIKEMAN = 257;
 
-
-        //position monde 1//
-        public static readonly int HAUTEURBOBMONDE1 = 418, MILIEUMONDE1 = 600, HAUTEURSPIKEMAN = 240, HAUTEURABEILLE = 440, SPAWNENNEMIS = 200;
-
-        //position monde 2//
-        public static readonly int HAUTEURBOBMONDE2 = 470, MILIEUMONDE2 = 600;
         public MainWindow()
         {
-            MD1 = new BitmapImage(new Uri("pack://application:,,,/background/monde1.png"));
-            accueil = new BitmapImage(new Uri("pack://application:,,,/background/fond_départ.png"));
+            monde = new BitmapImage(new Uri("pack://application:,,,/background/monde1.png"));
+            menu = new BitmapImage(new Uri("pack://application:,,,/background/fond_départ.png"));
             bobAccroupiDroite = new BitmapImage(new Uri("pack://application:,,,/Bob/accroupi/bob_droite_accroupi_marteau.png"));
             bobAccroupiGauche = new BitmapImage(new Uri("pack://application:,,,/Bob/accroupi/bob_gauche_accroupi_marteau.png"));
             alea = new Random();
@@ -131,7 +109,7 @@ namespace TstSAE
                 musique.Open(new Uri(AppDomain.CurrentDomain.BaseDirectory +
                "Son/musique-jeu.mp3"));
                 
-                musique.Volume = 10;
+                musique.Volume = 100;
                 musique.Play();
             }
         }
@@ -165,22 +143,21 @@ namespace TstSAE
             
 
             Image monde1 = new Image();
-            monde1.Source = MD1;
-            monde1.Width = MD1.Width;
-            monde1.Height = MD1.Height;
+            monde1.Source = monde;
+            monde1.Width = monde.Width;
+            monde1.Height = monde.Height;
 
-            CanvaFond.Background = new ImageBrush(MD1);
+            CanvaFond.Background = new ImageBrush(monde);
 
-            Bob = new Image();
-            Bob.Source = bobDroiteMarteau[0];
-            Bob.Width = bobDroiteMarteau[0].Width;
-            Bob.Height = bobDroiteMarteau[0].Height;
+            bob = new Image();
+            bob.Source = bobDroiteMarteau[0];
+            bob.Width = bobDroiteMarteau[0].Width;
+            bob.Height = bobDroiteMarteau[0].Height;
 
-            CanvaFond.Children.Add(Bob);
-            Canvas.SetLeft(Bob, MILIEUMONDE1);
-            Canvas.SetTop(Bob, CanvaFond.ActualHeight - HAUTEURBOBMONDE1);
+            CanvaFond.Children.Add(bob);
+            Canvas.SetLeft(bob, CanvaFond.ActualWidth / 2);
+            Canvas.SetTop(bob, CanvaFond.ActualHeight - HAUTEURBOBMONDE);
 
-            positionInitialSpikeMan = new double[nbSpikeMan];
             for (int i = 0; i < nbSpikeMan; i++)
             {
                 spikeM = new Image();
@@ -195,13 +172,13 @@ namespace TstSAE
                 
             }
             marteau = new Image();
-            marteau.Source = Marteaugauche[0];
-            marteau.Width = Marteaugauche[0].Width;
-            marteau.Height = Marteaugauche[0].Height;
+            marteau.Source = marteauImages[0];
+            marteau.Width = marteauImages[0].Width;
+            marteau.Height = marteauImages[0].Height;
 
             CanvaFond.Children.Add(marteau);
-            Canvas.SetLeft(marteau, MILIEUMONDE1);
-            Canvas.SetTop(marteau, CanvaFond.ActualHeight - HAUTEURBOBMONDE1);
+            Canvas.SetLeft(marteau, 600);
+            Canvas.SetTop(marteau, CanvaFond.ActualHeight - HAUTEURBOBMONDE);
             marteau.Visibility = Visibility.Hidden;
 
             for (int i = 0; i < nbHautAbeilles; i++)
@@ -260,34 +237,31 @@ namespace TstSAE
         //initialisation vie//
         private void initVie()
         {
-            lesvies = new Image[3];
-            lesvies[0] = vie1;
-            lesvies[1] = vie2;
-            lesvies[2] = vie3;
+            lesVies = new Image[3];
+            lesVies[0] = vie1;
+            lesVies[1] = vie2;
+            lesVies[2] = vie3;
         }
 
         //initialisation marteau//
         private void InitMarteauImage()
         {          
-            Marteaugauche = new BitmapImage[4];
+            marteauImages = new BitmapImage[4];
             for (int i = 0; i < 4; i++)
             {
-                Marteaugauche[i] = new BitmapImage(new Uri($"pack://application:,,,/Bob/marteau_gauche/marteau_inv{i}.png"));
+                marteauImages[i] = new BitmapImage(new Uri($"pack://application:,,,/Bob/marteau_gauche/marteau_inv{i}.png"));
             }
         }
 
         //timer//
         private void jeuTimer()
         {
-            minuteur = new DispatcherTimer();
-            minuteur.Interval = TimeSpan.FromMilliseconds(30);
-            minuteur.Tick += jeu;
-            minuteur.Start();
+            minuteurJeu = new DispatcherTimer();
+            minuteurJeu.Interval = TimeSpan.FromMilliseconds(30);
+            minuteurJeu.Tick += jeu;
+            minuteurJeu.Start();
         }
-        //timer spike man//
-        private DispatcherTimer timerAcceleration;
-
-        
+        //timer spike man// 
         private void InitialiserTimerAcceleration()
         {
             timerAcceleration = new DispatcherTimer();
@@ -302,10 +276,10 @@ namespace TstSAE
         //chrono//
         private void tempsEnJeu()
         {
-            temps = new DispatcherTimer();
-            temps.Interval = TimeSpan.FromSeconds(1);
-            temps.Tick += chrono;
-            temps.Start();
+            chronoJeu = new DispatcherTimer();
+            chronoJeu.Interval = TimeSpan.FromSeconds(1);
+            chronoJeu.Tick += chrono;
+            chronoJeu.Start();
         }
         private void chrono(object? sender, EventArgs e)
         {
@@ -347,8 +321,8 @@ namespace TstSAE
         {
             double posAbeilleX = Canvas.GetLeft(ennemi);
             double posAbeilleY = Canvas.GetTop(ennemi);
-            double posBobX = Canvas.GetLeft(Bob);
-            double posBobY = Canvas.GetTop(Bob);
+            double posBobX = Canvas.GetLeft(bob);
+            double posBobY = Canvas.GetTop(bob);
 
             // Calculer la direction vers Bob (X et Y)
             double directionX = posBobX - posAbeilleX;
@@ -372,35 +346,35 @@ namespace TstSAE
         //jeu//
         private void jeu(object? sender, EventArgs e)
         {
-            double posBob = Canvas.GetLeft(Bob);
+            double posBob = Canvas.GetLeft(bob);
             double posSpike = Canvas.GetLeft(spikeM);
             double newPosBob = posBob;
             double newPosSpike = posSpike;
 
-            System.Drawing.Rectangle RBob = new System.Drawing.Rectangle((int)Canvas.GetLeft(Bob) + 70,
-            (int)Canvas.GetTop(Bob),
-            (int)Bob.Width,
-            (int)Bob.Height);
+            System.Drawing.Rectangle RBob = new System.Drawing.Rectangle((int)Canvas.GetLeft(bob) + 70,
+            (int)Canvas.GetTop(bob),
+            (int)bob.Width,
+            (int)bob.Height);
 
             if (accroupi == true)
             {
                 enDeplacement = false;
                 if (regardDroite == true)
-                    Bob.Source = bobAccroupiDroite;
+                    bob.Source = bobAccroupiDroite;
                 if (regardDroite == false)
-                    Bob.Source = bobAccroupiGauche;
+                    bob.Source = bobAccroupiGauche;
                 else
-                    Bob.Source = bobAccroupiDroite;
+                    bob.Source = bobAccroupiDroite;
             }
             if (accroupi == false)
             {
                 enDeplacement = false;
                 if (regardDroite == true)
-                    Bob.Source = bobDroiteMarteau[indiceBob];
+                    bob.Source = bobDroiteMarteau[indiceBob];
                 if (regardDroite == false)
-                    Bob.Source = bobGaucheMarteau[indiceBob];
+                    bob.Source = bobGaucheMarteau[indiceBob];
                 else
-                    Bob.Source = bobDroiteMarteau[indiceBob];
+                    bob.Source = bobDroiteMarteau[indiceBob];
             }
 
             if (gauche == true && (posBob + PASDEBOB > 0) && pause == false )
@@ -411,11 +385,11 @@ namespace TstSAE
                  {
                      indiceBob = 0;
                  }
-                 Bob.Source = bobGaucheMarteau[indiceBob];
+                 bob.Source = bobGaucheMarteau[indiceBob];
                  newPosBob = posBob - PASDEBOB;
              }
 
-             if (droite == true && (posBob + PASDEBOB) < (CanvaFond.ActualWidth - Bob.ActualWidth) && pause == false)
+             if (droite == true && (posBob + PASDEBOB) < (CanvaFond.ActualWidth - bob.ActualWidth) && pause == false)
              {
                  enDeplacement = true;
                  indiceBob++;
@@ -423,10 +397,10 @@ namespace TstSAE
                  {
                     indiceBob = 0;
                  }
-                 Bob.Source = bobDroiteMarteau[indiceBob];
+                 bob.Source = bobDroiteMarteau[indiceBob];
                  newPosBob = posBob + PASDEBOB;
              }
-            Canvas.SetLeft(Bob, newPosBob);
+            Canvas.SetLeft(bob, newPosBob);
 
             double posmart = Canvas.GetLeft(marteau);
             double newposmart = posmart;
@@ -445,7 +419,7 @@ namespace TstSAE
                 {
                     indiceMarteau = 0;
                 }
-                marteau.Source = Marteaugauche[indiceMarteau];
+                marteau.Source = marteauImages[indiceMarteau];
                 newposmart = posmart - PASMARTEAU;
                 Canvas.SetLeft(marteau, newposmart);
 
@@ -486,7 +460,7 @@ namespace TstSAE
                     Canvas.SetLeft(lesSpikeMan[i], alea.Next(-1000, -100));
                     if (nbVie >= 1)
                     {
-                        lesvies[nbVie - 1].Visibility = Visibility.Hidden;
+                        lesVies[nbVie - 1].Visibility = Visibility.Hidden;
                         nbVie--;
                     }
                     else
@@ -498,7 +472,7 @@ namespace TstSAE
                 if (rSpikeMan.IntersectsWith(rMarteau))
                 {
                     Canvas.SetLeft(lesSpikeMan[i], alea.Next(-1000, -100));
-                    Canvas.SetLeft(marteau, Canvas.GetLeft(Bob));
+                    Canvas.SetLeft(marteau, Canvas.GetLeft(bob));
                     lancer = false;
                     deplacementMarteau = false;
                     marteau.Visibility = Visibility.Hidden;
@@ -527,7 +501,7 @@ namespace TstSAE
                     Canvas.SetLeft(lesAbeillesHaut[i], alea.Next(-1000, 2200));
                     if (nbVie >= 1)
                     {
-                        lesvies[nbVie - 1].Visibility = Visibility.Hidden;
+                        lesVies[nbVie - 1].Visibility = Visibility.Hidden;
                         nbVie--;
                     }
                     else
@@ -600,14 +574,14 @@ namespace TstSAE
                 {
                     if (pause == true)
                     {
-                        minuteur.Start();
-                        temps.Start();
+                        minuteurJeu.Start();
+                        chronoJeu.Start();
                         pause = false;
                     }
                     else if (pause == false)
                     {
-                        minuteur.Stop();
-                        temps.Stop();
+                        minuteurJeu.Stop();
+                        chronoJeu.Stop();
                         pause = true;
                     }
                 }
@@ -621,7 +595,7 @@ namespace TstSAE
                 lancer = true;
                 deplacementMarteau = true;
                 marteau.Visibility = Visibility.Visible;
-                Canvas.SetTop(marteau, Canvas.GetTop(Bob) + Bob.ActualWidth - 20);
+                Canvas.SetTop(marteau, Canvas.GetTop(bob) + bob.ActualWidth - 20);
             }
         }
 
@@ -638,8 +612,8 @@ namespace TstSAE
                 vie2.Visibility = Visibility.Visible;
                 vie3.Visibility = Visibility.Visible;
 
-                minuteur.Stop();
-                temps.Stop();
+                minuteurJeu.Stop();
+                chronoJeu.Stop();
                 CanvaFond.Children.Clear();
 
                 nbVie = 3;
