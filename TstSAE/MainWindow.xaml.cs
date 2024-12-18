@@ -25,7 +25,7 @@ namespace TstSAE
         
         
         //variable//
-        public static readonly double PASDEBOB = 4, PASSPIKEMAN = 3, PASABEILLE = 5;
+        public static readonly double PASDEBOB = 4, PASSPIKEMAN = 3, PASABEILLE = 5, incrementVitesse = 0.5; 
         BitmapImage[] bobDroiteMarteau, bobGaucheMarteau;
 
         //pause//
@@ -49,6 +49,7 @@ namespace TstSAE
 
         //spikeMan//
         int indiceSpikeMan;
+        double vitesseSpikeMan = 1;
         BitmapImage[] spikeManImages;
         int nbSpikeMan = 3;
         List<Image> lesSpikeMan = new List<Image>();
@@ -135,6 +136,7 @@ namespace TstSAE
             tempsEnJeu();
             initVie();
             jeuTimer();
+            InitialiserTimerAcceleration();
 
             Image monde1 = new Image();
             monde1.Source = MD1;
@@ -293,6 +295,19 @@ namespace TstSAE
             minuteur.Tick += jeu;
             minuteur.Start();
         }
+        //timer spike man//
+        private DispatcherTimer timerAcceleration;
+
+        private void InitialiserTimerAcceleration()
+        {
+            timerAcceleration = new DispatcherTimer();
+            timerAcceleration.Interval = TimeSpan.FromSeconds(10); 
+            timerAcceleration.Tick += (s, e) =>
+            {
+                vitesseSpikeMan += incrementVitesse;
+            };
+            timerAcceleration.Start();
+        }
         //chrono//
         private void tempsEnJeu()
         {
@@ -334,8 +349,10 @@ namespace TstSAE
                 indiceCooldown = 0;
             cooldown = false;
         }
-        //ennemis vers joueur//
-        private void DeplacerAbeilleVersBob(Image ennemi)
+        
+
+    //ennemis vers joueur//
+    private void DeplacerAbeilleVersBob(Image ennemi)
         {
             double posAbeilleX = Canvas.GetLeft(ennemi);
             double posAbeilleY = Canvas.GetTop(ennemi);
@@ -460,7 +477,7 @@ namespace TstSAE
                 }
                 lesSpikeMan[i].Source = spikeManImages[indiceSpikeMan];
 
-                double newPosEnnemi = posEnnemi + PASSPIKEMAN;
+                double newPosEnnemi = posEnnemi + PASSPIKEMAN*vitesseSpikeMan;
                 Canvas.SetLeft(lesSpikeMan[i], newPosEnnemi);
 
                 if (Canvas.GetLeft(lesSpikeMan[i]) > CanvaFond.ActualWidth)
@@ -496,6 +513,11 @@ namespace TstSAE
                     marteau.Visibility = Visibility.Hidden;
                     nbScore = nbScore + 1;
                     blockScore.Text = "Score : " + nbScore;
+                    if (nbScore % 5 == 0 && nbScore > 0)
+                    {
+                        vitesseSpikeMan += incrementVitesse;
+                    }
+
                 }
             }
 
@@ -537,6 +559,7 @@ namespace TstSAE
                 {
                     tempsAttente.Stop();
                 }
+                
             }
         }
         //bouton//
@@ -630,6 +653,7 @@ namespace TstSAE
 
                 nbVie = 3;
                 nbScore = 0;
+                vitesseSpikeMan = 0;
                 tmps = 0;
                 blockTemps.Text = "Temps : " + TimeSpan.FromSeconds(tmps);
                 blockScore.Text = "Score : " + nbScore;
