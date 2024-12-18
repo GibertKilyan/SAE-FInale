@@ -1,25 +1,117 @@
-﻿<Window x:Class="TstSAE.Regles"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:TstSAE"
-        mc:Ignorable="d"
-        Title="Regles" Height="400" Width="600" VerticalAlignment="Center" HorizontalAlignment="Center" WindowStartupLocation="CenterScreen">
+﻿<Window
+    x:Class="TstSAE.Regles"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:TstSAE"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Regles"
+    Width="600"
+    Height="400"
+    HorizontalAlignment="Center"
+    VerticalAlignment="Center"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
     <Grid>
-        <Button x:Name="ButOk" Content="OK" HorizontalAlignment="Center" Margin="0,326,0,0" VerticalAlignment="Top" Width="30" Height="20" Click="ButOk_Click"/>
-        <StackPanel Height="380" Width="600">
-            <TextBlock Text="📖" Width="28" Height="30" FontSize="22" />
-            <TextBlock HorizontalAlignment="Center" Margin="0,5,0,0" TextWrapping="Wrap" Text="REGLES DU JEU" Width="149" FontFamily="72 Black" Background="White"  FontSize="18"/>
-            <TextBlock HorizontalAlignment="Center" Margin="0,45,350,0" TextWrapping="Wrap" Text=" ⌨️ TOUCHES ⌨️" Width="136" FontFamily="72 Black" Background="White"  Height="21" FontSize="16"/>
-            <TextBlock TextWrapping="Wrap" Text="Q - Aller a gauche ⏪ " Width="484" FontFamily="72 Black" Background="White"  Margin="0,40,0,0" Height="15"/>
-            <TextBlock TextWrapping="Wrap" Text="D - Aller a droite ⏩ " Width="484" FontFamily="72 Black" Background="White"  Margin="0,20,0,0" Height="15"/>
-            <TextBlock TextWrapping="Wrap" Text="Espace - S'accroupir ⏬ " Width="484" FontFamily="72 Black" Background="White"  Margin="0,20,0,0" Height="15"/>
-            <TextBlock TextWrapping="Wrap" Text="F - Lancer le marteau 🔨" Width="484" FontFamily="72 Black" Background="White"  Margin="0,20,0,0" Height="15"/>
-            <TextBlock HorizontalAlignment="Center" Margin="0,-350,-270,0" TextWrapping="Wrap" Text=" 📜 REGLES 📜 " Width="127" FontFamily="72 Black" Background="White"  Height="21" FontSize="16"/>
-            <TextBlock TextWrapping="Wrap" Text=" 🖤 Vous perdez un coeur lorsque  vous touchez un ennemi" Width="188" FontFamily="72 Black" Background="White"  Margin="0,-250,-300,0" Height="41"/>
-            <TextBlock TextWrapping="Wrap" Text=" 🐝 Pour eviter les ennemis volants vous devez vous accroupir" Width="180" FontFamily="72 Black" Background="White"  Margin="0,-140,-295,0" Height="47"/>
-            <TextBlock TextWrapping="Wrap" Text=" 🔨 Vous devez tuer les ennemis au sol en lancant votre marteau " Width="180" FontFamily="72 Black" Background="White"  Margin="0,-40,-295,0" Height="47"/>
+        <Grid.Background>
+            <ImageBrush ImageSource="/background/fondregles.jpg" />
+        </Grid.Background>
+        <Button
+            x:Name="ButOk"
+            Width="30"
+            Height="20"
+            Margin="0,326,0,0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            Click="ButOk_Click"
+            Content="OK" />
+        <StackPanel Width="600" Margin="0,2,0,88">
+            <StackPanel.Background>
+                <ImageBrush />
+            </StackPanel.Background>
+
+            <TextBlock
+                Width="28"
+                Height="30"
+                FontSize="22"
+                Text="📖" />
+            <TextBlock
+                Width="166"
+                Margin="0,5,0,0"
+                HorizontalAlignment="Center"
+                FontFamily="Arial Black"
+                FontSize="18"
+                Text="REGLES DU JEU"
+                TextWrapping="Wrap" />
+            <TextBlock
+                Width="153"
+                Height="21"
+                Margin="0,45,350,0"
+                HorizontalAlignment="Center"
+                FontFamily="Arial Black"
+                FontSize="16"
+                Text=" ⌨️ TOUCHES ⌨️"
+                TextWrapping="Wrap" />
+            <TextBlock
+                Width="140"
+                Height="15"
+                Margin="5,40,355,0"
+                VerticalAlignment="Bottom"
+                FontFamily="Arial Black"
+                Text="Q - Aller a gauche ⏪ "
+                TextWrapping="Wrap" />
+            <TextBlock
+                Width="130"
+                Height="15"
+                Margin="0,20,360,0"
+                FontFamily="Arial Black"
+                Text="D - Aller a droite ⏩ "
+                TextWrapping="Wrap" />
+            <TextBlock
+                Width="156"
+                Height="15"
+                Margin="0,20,335,0"
+                FontFamily="Arial Black"
+                Text="Espace - S'accroupir ⏬ "
+                TextWrapping="Wrap" />
+            <TextBlock
+                Width="164"
+                Height="15"
+                Margin="0,20,325,0"
+                VerticalAlignment="Bottom"
+                FontFamily="Arial Black"
+                Text="F - Lancer le marteau 🔨"
+                TextWrapping="Wrap" />
+            <TextBlock
+                Width="133"
+                Height="21"
+                Margin="0,-350,-270,0"
+                HorizontalAlignment="Center"
+                FontFamily="Arial Black"
+                FontSize="16"
+                Text=" 📜 REGLES 📜 "
+                TextWrapping="Wrap" />
+            <TextBlock
+                Width="188"
+                Height="41"
+                Margin="0,-250,-300,0"
+                FontFamily="Arial Black"
+                Text=" 🖤 Vous perdez un coeur lorsque  vous touchez un ennemi"
+                TextWrapping="Wrap" />
+            <TextBlock
+                Width="180"
+                Height="47"
+                Margin="0,-140,-295,0"
+                FontFamily="Arial Black"
+                Text=" 🐝 Pour eviter les ennemis volants vous devez vous accroupir"
+                TextWrapping="Wrap" />
+            <TextBlock
+                Width="180"
+                Height="47"
+                Margin="0,-40,-295,0"
+                FontFamily="Arial Black"
+                Text=" 🔨 Vous devez tuer les ennemis au sol en lancant votre marteau "
+                TextWrapping="Wrap" />
 
         </StackPanel>
     </Grid>
