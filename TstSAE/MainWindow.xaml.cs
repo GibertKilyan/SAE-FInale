@@ -249,9 +249,10 @@ namespace TstSAE
         {
             //stock les 3vie présent sur la mainWindow dans un tableau
             lesVies = new Image[3];
-            lesVies[0] = vie1;
-            lesVies[1] = vie2;
-            lesVies[2] = vie3;
+            lesVies[0] = bouclier1;
+            lesVies[1] = bouclier2;
+            lesVies[2] = bouclier3;
+                ;
         }
 
         //initialisation marteau//
@@ -632,9 +633,9 @@ namespace TstSAE
 
             if (result == MessageBoxResult.Yes)
             {
-                vie1.Visibility = Visibility.Visible;
-                vie2.Visibility = Visibility.Visible;
-                vie3.Visibility = Visibility.Visible;
+                bouclier1.Visibility = Visibility.Visible;
+                bouclier2.Visibility = Visibility.Visible;
+                bouclier3.Visibility = Visibility.Visible;
 
                 minuteurJeu.Stop();
                 chronoJeu.Stop();
