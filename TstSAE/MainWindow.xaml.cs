@@ -76,6 +76,11 @@ namespace TstSAE
         int nbVie = 3;
         Image[] lesvies;
 
+        //musique//
+        private static MediaPlayer musique;
+
+
+
         //position monde 1//
         public static readonly int HAUTEURBOBMONDE1 = 418, MILIEUMONDE1 = 600, HAUTEURSPIKEMAN = 240, HAUTEURABEILLE = 440, SPAWNENNEMIS = 200;
 
@@ -94,11 +99,13 @@ namespace TstSAE
             InitBobImage();
             InitMarteauImage();
             InitImageEnnemis();
+            
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             Menu();
         }
+        
         private void Menu()
         {
             this.Hide();
@@ -137,6 +144,7 @@ namespace TstSAE
             initVie();
             jeuTimer();
             InitialiserTimerAcceleration();
+            InitMusique();
 
             Image monde1 = new Image();
             monde1.Source = MD1;
@@ -224,6 +232,26 @@ namespace TstSAE
                 bobGaucheMarteau[i] = new BitmapImage(new Uri($"pack://application:,,,/BOB/Bob_gauche/bob_gauche_marteau{i + 1}.png"));
             }
         }
+        private void InitMusique()
+
+        {
+            {
+                musique = new MediaPlayer();
+                musique.Open(new Uri(AppDomain.CurrentDomain.BaseDirectory +
+               "Son/musique-jeu.mp3"));
+                musique.MediaEnded += RelanceMusique;
+                musique.Volume = 0.5;
+                musique.Play();
+            }
+        }
+        private void RelanceMusique(object? sender, EventArgs e)
+        {
+            musique.Position = TimeSpan.Zero;
+            musique.Play();
+        }
+
+
+
         //initialisation ennemis//
         private void InitImageEnnemis()
         {
@@ -298,15 +326,18 @@ namespace TstSAE
         //timer spike man//
         private DispatcherTimer timerAcceleration;
 
+        
         private void InitialiserTimerAcceleration()
         {
             timerAcceleration = new DispatcherTimer();
-            timerAcceleration.Interval = TimeSpan.FromSeconds(10); 
-            timerAcceleration.Tick += (s, e) =>
-            {
-                vitesseSpikeMan += incrementVitesse;
-            };
+            timerAcceleration.Interval = TimeSpan.FromSeconds(10);
+            timerAcceleration.Tick += acceleration;
             timerAcceleration.Start();
+        }
+        private void acceleration(object? sender, EventArgs e)
+        {
+            blockTemps.Text = "Temps : " + TimeSpan.FromSeconds(tmps);
+            tmps += 1;
         }
         //chrono//
         private void tempsEnJeu()

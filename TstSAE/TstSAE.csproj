@@ -50,9 +50,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Son\musique-jeu.mp3">
+    <Resource Include="Son\musique-jeu.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
