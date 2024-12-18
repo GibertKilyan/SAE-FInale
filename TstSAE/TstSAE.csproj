@@ -9,9 +9,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="BOB\Marteau_droite\**" />
+    <EmbeddedResource Remove="BOB\Marteau_droite\**" />
+    <None Remove="BOB\Marteau_droite\**" />
+    <Page Remove="BOB\Marteau_droite\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="background\fondregles.jpg" />
     <None Remove="background\fond_départ.png" />
     <None Remove="background\Logo.png" />
     <None Remove="background\monde1.png" />
+    <None Remove="background\monde2.jpg" />
+    <None Remove="BOB\accroupi\bob_accroupi_droit.png" />
+    <None Remove="BOB\accroupi\bob_accroupi_gauche.png" />
     <None Remove="BOB\accroupi\bob_droite_accroupi_marteau.png" />
     <None Remove="BOB\accroupi\bob_gauche_accroupi_marteau.png" />
     <None Remove="BOB\bob_arrêt.png" />
@@ -33,20 +44,15 @@
     <None Remove="BOB\Marteau_gauche\marteau_inv1.png" />
     <None Remove="BOB\Marteau_gauche\marteau_inv2.png" />
     <None Remove="BOB\Marteau_gauche\marteau_inv3.png" />
+    <None Remove="ennemis\abeille_bas.png" />
     <None Remove="ennemis\abeille_haut.png" />
     <None Remove="ennemis\spikeMan_depart.png" />
     <None Remove="ennemis\spikeMan_marche.png" />
-    <None Remove="Son\musique-jeu.mp3" />
     <None Remove="vie\coeur_plein.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Son\musique-jeu.mp3">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
-
-  <ItemGroup>
+    <Resource Include="background\fondregles.jpg" />
     <Resource Include="background\fond_départ.png" />
     <Resource Include="background\Logo.png" />
     <Resource Include="background\monde1.png" />
@@ -75,6 +81,12 @@
     <Resource Include="ennemis\spikeMan_depart.png" />
     <Resource Include="ennemis\spikeMan_marche.png" />
     <Resource Include="vie\coeur_plein.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Son\musique-jeu.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

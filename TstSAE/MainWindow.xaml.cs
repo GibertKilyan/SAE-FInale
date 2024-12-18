@@ -98,8 +98,9 @@ namespace TstSAE
             InitBobImage();
             InitMarteauImage();
             InitImageEnnemis();
-            
+            InitMusique();
         }
+        
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             Menu();
@@ -120,6 +121,24 @@ namespace TstSAE
                 if (OPTION == -1)
                     regles();
             }
+        
+        }
+        private void InitMusique()
+
+        {
+            {
+                musique = new MediaPlayer();
+                musique.Open(new Uri(AppDomain.CurrentDomain.BaseDirectory +
+               "Son/musique-jeu.mp3"));
+                
+                musique.Volume = 10;
+                musique.Play();
+            }
+        }
+        private void RelanceMusique(object? sender, EventArgs e)
+        {
+            musique.Position = TimeSpan.Zero;
+            musique.Play();
         }
         private void regles()
         {
@@ -143,7 +162,7 @@ namespace TstSAE
             initVie();
             jeuTimer();
             InitialiserTimerAcceleration();
-            InitMusique();
+            
 
             Image monde1 = new Image();
             monde1.Source = MD1;
@@ -215,23 +234,7 @@ namespace TstSAE
                 bobGaucheMarteau[i] = new BitmapImage(new Uri($"pack://application:,,,/BOB/Bob_gauche/bob_gauche_marteau{i + 1}.png"));
             }
         }
-        private void InitMusique()
-
-        {
-            {
-                musique = new MediaPlayer();
-                musique.Open(new Uri(AppDomain.CurrentDomain.BaseDirectory +
-               "Son/musique-jeu.mp3"));
-                musique.MediaEnded += RelanceMusique;
-                musique.Volume = 0.5;
-                musique.Play();
-            }
-        }
-        private void RelanceMusique(object? sender, EventArgs e)
-        {
-            musique.Position = TimeSpan.Zero;
-            musique.Play();
-        }
+       
 
 
 
