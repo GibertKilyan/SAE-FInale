@@ -18,7 +18,7 @@ namespace TstSAE
 {
     public partial class MainWindow : Window
     {
-        public static BitmapImage MD1, MD2, accueil;
+        public static BitmapImage MD1, accueil;
         public DispatcherTimer minuteur;
         private static Random alea;
         public static int OPTION {  get; set; }
@@ -84,7 +84,6 @@ namespace TstSAE
         public MainWindow()
         {
             MD1 = new BitmapImage(new Uri("pack://application:,,,/background/monde1.png"));
-            MD2 = new BitmapImage(new Uri("pack://application:,,,/background/monde2.jpg"));
             accueil = new BitmapImage(new Uri("pack://application:,,,/background/fond_départ.png"));
             bobAccroupiDroite = new BitmapImage(new Uri("pack://application:,,,/Bob/accroupi/bob_droite_accroupi_marteau.png"));
             bobAccroupiGauche = new BitmapImage(new Uri("pack://application:,,,/Bob/accroupi/bob_gauche_accroupi_marteau.png"));
@@ -162,14 +161,6 @@ namespace TstSAE
                 spikeM.Width = spikeManImages[21].Width;
                 spikeM.Height = spikeManImages[21].Height;
 
-                double nouveauX;
-
-                do
-                {
-                    nouveauX = alea.Next(-1000, -100);
-                }
-                while (PositionValide(nouveauX, lesSpikeMan, spikeM.Width));
-
                 lesSpikeMan.Add(spikeM);
                 CanvaFond.Children.Add(spikeM);
                 Canvas.SetLeft(spikeM, nouveauX);
@@ -193,17 +184,9 @@ namespace TstSAE
                 abeilleHaut.Width = abeillesImages[0].Width;
                 abeilleHaut.Height = abeillesImages[0].Height;
 
-                double nouveauX;
-
-                do
-                {
-                    nouveauX = alea.Next(-1000, 2200);
-                }
-                while (PositionValide(nouveauX, lesAbeillesHaut, abeilleHaut.Width));
-
                 lesAbeillesHaut.Add(abeilleHaut);
                 CanvaFond.Children.Add(abeilleHaut);
-                Canvas.SetLeft(abeilleHaut, nouveauX);
+                Canvas.SetLeft(abeilleHaut, alea.Next(-1000, 2200));
                 Canvas.SetTop(abeilleHaut, alea.Next(-300, 0));
             }
         }
@@ -240,33 +223,9 @@ namespace TstSAE
                 }
             }
 
-            abeillesImages = new BitmapImage[40];
-            for(int i = 0 ;i < abeillesImages.Length;i++)
-            {
-                if (i <= 20)
-                {
-                    abeillesImages[i] = new BitmapImage(new Uri("pack://application:,,,/ennemis/abeille_haut.png"));
-                }
-                else
-                {
-                    abeillesImages[i] = new BitmapImage(new Uri("pack://application:,,,/ennemis/abeille_bas.png"));
-                }
-            }
+            abeillesImages = new BitmapImage[1];
+            abeillesImages[0] = new BitmapImage(new Uri("pack://application:,,,/ennemis/abeille_haut.png"));
         }
-        //verification du chevauchement ennemis//
-        private bool PositionValide(double newX, List<Image> ennemis, double enemisWidth)
-        {
-            foreach (var ennemi in ennemis)
-            {
-                double xExistant = Canvas.GetLeft(ennemi);
-                if (Math.Abs(xExistant - newX) < enemisWidth)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
         //initialisation vie//
         private void initVie()
         {
@@ -278,8 +237,7 @@ namespace TstSAE
 
         //initialisation marteau//
         private void InitMarteauImage()
-        {
-            
+        {          
             Marteaugauche = new BitmapImage[4];
             for (int i = 0; i < 4; i++)
             {
@@ -513,7 +471,7 @@ namespace TstSAE
                     marteau.Visibility = Visibility.Hidden;
                     nbScore = nbScore + 1;
                     blockScore.Text = "Score : " + nbScore;
-                    if (nbScore % 5 == 0 && nbScore > 0)
+                    if (nbScore % 10 == 0 && nbScore > 0)
                     {
                         vitesseSpikeMan += incrementVitesse;
                     }
