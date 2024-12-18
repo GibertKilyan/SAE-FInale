@@ -654,6 +654,7 @@ namespace TstSAE
 
             if (result == MessageBoxResult.Yes)
             {
+                //on reinitialise tout et on relance le monde
                 bouclier1.Visibility = Visibility.Visible;
                 bouclier2.Visibility = Visibility.Visible;
                 bouclier3.Visibility = Visibility.Visible;
