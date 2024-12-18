@@ -67,7 +67,7 @@ namespace TstSAE
                    
         //musique//
         private static MediaPlayer musique;
-        private static MediaPlayer sondegats;
+        private static MediaPlayer sonDegats;
         //position monde//
         public static readonly int HAUTEURBOBMONDE = 440, HAUTEURSPIKEMAN = 257;
         public static readonly int HAUTEURALEATOIRE = -300, GAUCHEDUCANVAALEATOIRE = -1000, GAUCHECANVAALEATOIRE2 = -100,DROITEDUCANVAALEATOIRE = 2200, HAUTCANVA = 0;
@@ -147,12 +147,11 @@ namespace TstSAE
         //son de degat//
         private void InitSon()
         {
-            sondegats = new MediaPlayer();
-            sondegats.Open(new Uri(AppDomain.CurrentDomain.BaseDirectory +
+            sonDegats = new MediaPlayer();
+            sonDegats.Open(new Uri(AppDomain.CurrentDomain.BaseDirectory +
            "Son/sondegat.mp3"));
-
-            sondegats.Volume = 1;
-            sondegats.Play();
+            sonDegats.Volume = 1;
+            sonDegats.Play();
 
         }
         
