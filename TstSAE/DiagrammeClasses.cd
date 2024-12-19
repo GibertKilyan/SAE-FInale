@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="TstSAE.Regles">
-    <Position X="5.75" Y="2.75" Width="1.5" />
+  <Class Name="TstSAE.Regles" Collapsed="true">
+    <Position X="2.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAA=</HashCode>
       <FileName>Regles.xaml.cs</FileName>
@@ -9,10 +9,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="TstSAE.Menu">
-    <Position X="1.5" Y="2.75" Width="1.5" />
-    <Compartments>
-      <Compartment Name="Fields" Collapsed="true" />
-    </Compartments>
+    <Position X="0.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAQAAAIAAAAABgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Menu.xaml.cs</FileName>
@@ -20,18 +17,15 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="TstSAE.MainWindow">
-    <Position X="3.5" Y="2.75" Width="1.25" />
-    <Compartments>
-      <Compartment Name="Fields" Collapsed="true" />
-    </Compartments>
+    <Position X="11.75" Y="1.25" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>KQFvDMIZRAZsYDzC4hLic0hMQGHOoEfEAmCdgAYRoYg=</HashCode>
+      <HashCode>qQFvDMIZTAZsYDZC4hPic0hMQGnOoEfEAmCdgAYRIYA=</HashCode>
       <FileName>MainWindow.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="TstSAE.FenetreAudio">
-    <Position X="7.75" Y="2.75" Width="1.5" />
+  <Class Name="TstSAE.FenetreAudio" Collapsed="true">
+    <Position X="4.25" Y="1.75" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
