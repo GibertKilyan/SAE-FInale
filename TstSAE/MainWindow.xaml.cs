@@ -121,7 +121,9 @@ namespace TstSAE
             {
                 if (REGLEDUJEU == true)
                     Regles();
-            } 
+                else 
+                    Application.Current.Shutdown();
+            }   
         }
         
         private void Regles()

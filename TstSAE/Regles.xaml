@@ -55,7 +55,7 @@
             <TextBlock x:Name="blockGauche"
                 Width="140"
                 Height="15"
-                Margin="5,40,355,0"
+                Margin="5,15,355,0"
                 VerticalAlignment="Bottom"
                 FontFamily="Arial Black"
                 Text="Q - Aller a gauche ⏪ "
@@ -91,7 +91,7 @@
             <TextBlock
                 Width="133"
                 Height="21"
-                Margin="0,-411,-270,0"
+                Margin="0,-360,-270,0"
                 HorizontalAlignment="Center"
                 FontFamily="Arial Black"
                 FontSize="16"
