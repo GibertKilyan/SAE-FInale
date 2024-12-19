@@ -10,9 +10,8 @@
     Height="500"
     KeyDown="Window_KeyDown"
     KeyUp="Window_KeyUp"
-    ResizeMode="NoResize"
     WindowState="Maximized"
-    mc:Ignorable="d" Loaded="Window_Loaded" MouseDown="Window_MouseDown">
+    mc:Ignorable="d" Loaded="Window_Loaded" MouseDown="Window_MouseDown" ResizeMode="NoResize">
     <Window.Resources>
         <Style x:Key="BoutonArrondi" TargetType="Button">
             <Setter Property="Template">
