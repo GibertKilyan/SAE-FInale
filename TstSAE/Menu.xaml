@@ -8,7 +8,11 @@
     Title="Menu"
     Width="800"
     Height="500"
-    mc:Ignorable="d" VerticalAlignment="Center" HorizontalAlignment="Center" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    HorizontalAlignment="Center"
+    VerticalAlignment="Center"
+    ResizeMode="NoResize"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
     <Window.Resources>
         <Style x:Key="BoutonArrondi" TargetType="Button">
             <Setter Property="Template">
@@ -27,54 +31,62 @@
         </Style>
     </Window.Resources>
     <Grid>
-        
+
         <Grid.Background>
-            <ImageBrush ImageSource="/background/fond_départ.png" />
+            <ImageBrush ImageSource="/background/monde1.png" />
         </Grid.Background>
         <StackPanel
             x:Name="stackMenu"
             Width="400"
             Height="90"
+            Margin="0,300,0,0"
             HorizontalAlignment="Center"
-            VerticalAlignment="Top" Margin="0,300,0,0">
-            <Button x:Name="butJouer"
+            VerticalAlignment="Top">
+            <Button
+                x:Name="butJouer"
                 Width="400"
                 Height="30"
                 Margin="0,0,0,25"
                 Background="Black"
+                Click="butJouer_Click"
                 Content="Jouer"
                 FontSize="14"
                 Foreground="White"
-                Style="{StaticResource BoutonArrondi}" Click="butJouer_Click" />
-            <Button x:Name="butRegleJeu"
+                Style="{StaticResource BoutonArrondi}" />
+            <Button
+                x:Name="butRegleJeu"
                 Width="400"
                 Height="30"
                 Margin="0,0,0,25"
                 Background="Black"
+                Click="butRegleJeu_Click"
                 Content="Règle du jeu"
                 FontSize="14"
                 Foreground="White"
-                Style="{StaticResource BoutonArrondi}" Click="butRegleJeu_Click" />
+                Style="{StaticResource BoutonArrondi}" />
         </StackPanel>
-        <StackPanel
-            Width="200"
-            Height="200"
-            Margin="0,0,0,220"
-            VerticalAlignment="Bottom">
+        <StackPanel Margin="252,10,252,203">
             <StackPanel.Background>
                 <ImageBrush ImageSource="/background/Logo.png" />
             </StackPanel.Background>
         </StackPanel>
         <Canvas>
-            <Menu Height="20" VerticalAlignment="Top" Margin="0,0,1125,0">
+            <Menu
+                Height="20"
+                Margin="0,0,1125,0"
+                VerticalAlignment="Top">
                 <Menu.Background>
-                    <ImageBrush/>
+                    <ImageBrush />
                 </Menu.Background>
 
-                <MenuItem Header="_Paramètres" Width="73" Height="16" >
-                    <MenuItem x:Name="MenuAudio" Header="_Son…" Click="MenuItem_Click"/>
-
-
+                <MenuItem
+                    Width="73"
+                    Height="16"
+                    Header="_Paramètres">
+                    <MenuItem
+                        x:Name="MenuAudio"
+                        Click="MenuItem_Click"
+                        Header="_Son…" />
                 </MenuItem>
             </Menu>
         </Canvas>

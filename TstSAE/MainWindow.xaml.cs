@@ -20,7 +20,7 @@ namespace TstSAE
     public partial class MainWindow : Window
     {
         //Variable Image//
-        private BitmapImage mondeJeu, fondDepart, abeillesImage;
+        private BitmapImage mondeJeu, abeillesImage;
         private BitmapImage[] bobDroiteMarteau, bobGaucheMarteau, spikeManImages, marteauImages;
         private BitmapImage bobAccroupiDroite, bobAccroupiGauche;
         private Image[] lesBoucliers;
@@ -80,7 +80,6 @@ namespace TstSAE
         {
             //initialisation des images qui n'ont pas besoin d'animation//
             mondeJeu = new BitmapImage(new Uri("pack://application:,,,/background/monde1.png"));
-            fondDepart = new BitmapImage(new Uri("pack://application:,,,/background/fond_départ.png"));
             bobAccroupiDroite = new BitmapImage(new Uri("pack://application:,,,/Bob/accroupi/bob_droite_accroupi_marteau.png"));
             bobAccroupiGauche = new BitmapImage(new Uri("pack://application:,,,/Bob/accroupi/bob_gauche_accroupi_marteau.png"));
             abeillesImage = new BitmapImage(new Uri("pack://application:,,,/ennemis/abeille_haut.png"));
