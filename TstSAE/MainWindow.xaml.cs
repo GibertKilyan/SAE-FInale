@@ -75,13 +75,13 @@ namespace TstSAE
         public MediaPlayer sonDegats;
  
         //position monde//
-        public static readonly int HAUTEURBOBMONDE = 438, HAUTEURSPIKEMAN = 255, MARTEAUHORSCANVA = 3000;
+        public static readonly int MARTEAUHORSCANVA = 3000;
         public static readonly int HAUTEURALEATOIRE = -300, GAUCHEDUCANVAALEATOIRE = -1000, GAUCHECANVAALEATOIRE2 = -100, DROITEDUCANVAALEATOIRE = 2200, HAUTCANVA = 0;
+
+        public static readonly int HAUTEURBOBMONDE = 438, HAUTEURSPIKEMAN = 255; // variable qui pose problème en fonction de la résolution de l'écran a changer pour que bob et les spikeman sois a la bonne hauteur
 
         //Autre variable//
         private static readonly int RESTEBOUCLIER = 1;
-
-
 
         public MainWindow()
         {

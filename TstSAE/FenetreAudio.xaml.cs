@@ -19,21 +19,13 @@ namespace TstSAE
     /// </summary>
     public partial class FenetreAudio : Window
 
-    {
-        
+    {      
         private MediaPlayer mediaPlayer;
-
-
         public double VolumeValue;
-
         public FenetreAudio(double VolumeBase)
         {
             InitializeComponent();
-
-
             VolumeSlider.Value = VolumeBase;
-
-
             VolumeSlider.ValueChanged += VolumeSlider_ValueChanged;
         }
 
@@ -44,14 +36,13 @@ namespace TstSAE
 
         private void ButOK_Click(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = true;
-            
+            this.DialogResult = true;            
         }
 
         private void ButFermer_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = false; // Annuler le dialogue
-            
+           
         }
     }
 }
