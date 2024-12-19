@@ -19,10 +19,15 @@ namespace TstSAE
     /// </summary>
     public partial class Menu : Window
     {
-        bool lancer;
-        public Menu()
+        public static double VolumePlayer;
+        public static double volumemusic;
+
+        MainWindow Jeu;
+
+        public Menu(MainWindow Jeu)
         {
             InitializeComponent();
+            this.Jeu = Jeu;
         }
 
         private void butRegleJeu_Click(object sender, RoutedEventArgs e)
@@ -34,6 +39,20 @@ namespace TstSAE
         private void butJouer_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = true;
+        }
+        
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            FenetreAudio dialog = new FenetreAudio(Jeu.musique.Volume);
+            bool? result = dialog.ShowDialog();
+
+            if (result == true)
+            {
+                // Mettre à jour le volume à partir de la boîte de dialogue
+                Jeu.musique.Volume = dialog.VolumeValue;
+                MessageBox.Show($"Volume réglé ", "Volume", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
     }
 }

@@ -32,8 +32,7 @@
     </Window.Resources>
     <Grid>
         <Canvas x:Name="CanvaFond" />
-
-        <StackPanel>
+        <StackPanel HorizontalAlignment="Left" Width="200" Height="70" VerticalAlignment="Top" Margin="0,3,0,0">
             <TextBlock
                 x:Name="blockTemps"
                 Width="200"
@@ -44,7 +43,6 @@
                 Foreground="White"
                 Text="Temps"
                 TextWrapping="Wrap" />
-
             <TextBlock x:Name="blockScore" Width="200" Height="30" HorizontalAlignment="Left" Text="Score : 0" FontSize="18" Foreground="White"/>
         </StackPanel>
         <StackPanel

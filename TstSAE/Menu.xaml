@@ -27,6 +27,7 @@
         </Style>
     </Window.Resources>
     <Grid>
+        
         <Grid.Background>
             <ImageBrush ImageSource="/background/fond_départ.png" />
         </Grid.Background>
@@ -64,5 +65,18 @@
                 <ImageBrush ImageSource="/background/Logo.png" />
             </StackPanel.Background>
         </StackPanel>
+        <Canvas>
+            <Menu Height="20" VerticalAlignment="Top" Margin="0,0,1125,0">
+                <Menu.Background>
+                    <ImageBrush/>
+                </Menu.Background>
+
+                <MenuItem Header="_Paramètres" Width="73" Height="16" >
+                    <MenuItem x:Name="MenuAudio" Header="_Son…" Click="MenuItem_Click"/>
+
+
+                </MenuItem>
+            </Menu>
+        </Canvas>
     </Grid>
 </Window>

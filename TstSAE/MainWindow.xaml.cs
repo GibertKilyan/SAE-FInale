@@ -66,8 +66,9 @@ namespace TstSAE
         public static int REGLEDUJEU;
                    
         //musique//
-        private static MediaPlayer musique;
-        private static MediaPlayer sonDegats;
+        public MediaPlayer musique;
+        public MediaPlayer sonDegats;
+ 
         //position monde//
         public static readonly int HAUTEURBOBMONDE = 418, HAUTEURSPIKEMAN = 240, MARTEAUHORSCANVA = 3000;
         public static readonly int HAUTEURALEATOIRE = -300, GAUCHEDUCANVAALEATOIRE = -1000, GAUCHECANVAALEATOIRE2 = -100,DROITEDUCANVAALEATOIRE = 2200, HAUTCANVA = 0;
@@ -102,7 +103,7 @@ namespace TstSAE
         private void FenetreDemarrage()
         {
             this.Hide();
-            Menu Menu = new Menu();
+            Menu Menu = new Menu(this);
             bool? result = Menu.ShowDialog();
 
             if (result == true) //si dans le menu la fonction monde est appuyer alors charge le monde 1
@@ -144,6 +145,7 @@ namespace TstSAE
                 musique.Play();
             }
         }
+      
         //son de degat//
         private void InitSon()
         {
@@ -624,7 +626,7 @@ namespace TstSAE
             }
         }
         //pause//
-        private void Pause()
+        public void Pause()
         {
             if (pause == true)
             {
