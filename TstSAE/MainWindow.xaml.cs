@@ -134,14 +134,13 @@ namespace TstSAE
 
         //musique//
         private void InitMusique()
-
         {
             {
                 musique = new MediaPlayer();
                 musique.Open(new Uri(AppDomain.CurrentDomain.BaseDirectory +
                "Son/musique-jeu.mp3"));
 
-                musique.Volume = 1;
+                musique.Volume = 1.0;
                 musique.Play();
             }
         }
@@ -152,7 +151,7 @@ namespace TstSAE
             sonDegats = new MediaPlayer();
             sonDegats.Open(new Uri(AppDomain.CurrentDomain.BaseDirectory +
            "Son/sondegat.mp3"));
-            sonDegats.Volume = 1;
+            sonDegats.Volume = 1.0;
             sonDegats.Play();
 
         }
@@ -198,6 +197,7 @@ namespace TstSAE
                 Canvas.SetTop(spikeM, CanvaFond.ActualHeight - HAUTEURSPIKEMAN);
                 
             }
+
             //image du marteau + place sur le canva qui sera changer plus tard au moment du lancer + cacher la marteau
             marteau = new Image();
             marteau.Source = marteauImages[0];
@@ -220,19 +220,18 @@ namespace TstSAE
                 Canvas.SetTop(abeilleHaut, alea.Next(HAUTEURALEATOIRE, HAUTCANVA)); //placer en haut aléatoirement entre le haut du canva et -300 au dessus du canva
             }
         }
+
         //initialisation image de bob pour animations de marche//
         private void InitBobImage()
         {
             bobDroiteMarteau = new BitmapImage[7];
             for (int i = 0; i < 7; i++)
-
             {
                 bobDroiteMarteau[i] = new BitmapImage(new Uri($"pack://application:,,,/BOB/Bob_droite/bob_droite_marteau{i + 1}.png"));
             }
 
             bobGaucheMarteau = new BitmapImage[7];
             for (int i = 0; i < 7; i++)
-
             {
                 bobGaucheMarteau[i] = new BitmapImage(new Uri($"pack://application:,,,/BOB/Bob_gauche/bob_gauche_marteau{i + 1}.png"));
             }
@@ -321,6 +320,7 @@ namespace TstSAE
                 indiceAccroupi = false;
             accroupi = false;
         }
+
         //Ce chrono est appeler quand on appuye sur la touche pour s'accroupir il met un cooldown sur la touche ce qui l'empeche de se reaccroupir directement et donc rester accroupie a l'infini
         private void TimerCooldown()
         {
@@ -421,7 +421,6 @@ namespace TstSAE
                 bob.Source = bobGaucheMarteau[indiceBob];
                 newPosBob = posBob - PASDEBOB;
             }
-
             if (droite == true && (posBob + PASDEBOB) < (CanvaFond.ActualWidth - bob.ActualWidth) && pause == false)
             {
                 enDeplacement = true;
@@ -488,7 +487,6 @@ namespace TstSAE
                 (int)Canvas.GetTop(lesSpikeMan[i]),
                 (int)lesSpikeMan[i].Width,
                 (int)lesSpikeMan[i].Height);
-
 
                 if (rSpikeMan.IntersectsWith(RBob))
                 {
@@ -576,12 +574,10 @@ namespace TstSAE
             {
                 droite = false;
                 enDeplacement = false;
-            }
-            
+            }    
         }
         private void Window_KeyDown(object sender, KeyEventArgs e)
-        {
-            
+        {     
              if (e.Key == Key.Q)
              {
                  gauche = true;
@@ -617,7 +613,6 @@ namespace TstSAE
         {
             if (Mouse.LeftButton == MouseButtonState.Pressed && !deplacementMarteau && regardDroite == false && pause == false)
             {
-
                 lancer = true;
                 deplacementMarteau = true;
                 marteau.Visibility = Visibility.Visible;
@@ -625,6 +620,7 @@ namespace TstSAE
                 Canvas.SetTop(marteau, Canvas.GetTop(bob) + bob.ActualWidth - MARTEAUHITBOXBOB);
             }
         }
+
         //pause//
         public void Pause()
         {

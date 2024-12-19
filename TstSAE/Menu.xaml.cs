@@ -19,11 +19,7 @@ namespace TstSAE
     /// </summary>
     public partial class Menu : Window
     {
-        public static double VolumePlayer;
-        public static double volumemusic;
-
         MainWindow Jeu;
-
         public Menu(MainWindow Jeu)
         {
             InitializeComponent();
@@ -41,7 +37,6 @@ namespace TstSAE
             this.DialogResult = true;
         }
         
-
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
             FenetreAudio dialog = new FenetreAudio(Jeu.musique.Volume);
