@@ -666,7 +666,7 @@ namespace TstSAE
         //rejouer
         private void ResetVariables()
         {
-            //on reinitialise tout
+            //on reinitialise tout les variables importantes
             bouclier1.Visibility = Visibility.Visible;
             bouclier2.Visibility = Visibility.Visible;
             bouclier3.Visibility = Visibility.Visible;
