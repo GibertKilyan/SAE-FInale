@@ -8,7 +8,7 @@
     Title="Menu"
     Width="800"
     Height="500"
-    mc:Ignorable="d" VerticalAlignment="Center" HorizontalAlignment="Center" WindowStartupLocation="CenterScreen">
+    mc:Ignorable="d" VerticalAlignment="Center" HorizontalAlignment="Center" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Window.Resources>
         <Style x:Key="BoutonArrondi" TargetType="Button">
             <Setter Property="Template">
