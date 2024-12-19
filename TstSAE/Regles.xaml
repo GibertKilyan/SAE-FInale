@@ -14,7 +14,7 @@
     mc:Ignorable="d" ResizeMode="NoResize">
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="/background/fondregles.jpg" />
+            <ImageBrush ImageSource="/background/fondRegles.jpg"/>
         </Grid.Background>
         <Button
             x:Name="ButOk"

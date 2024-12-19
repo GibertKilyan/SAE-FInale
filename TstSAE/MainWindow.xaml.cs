@@ -63,7 +63,7 @@ namespace TstSAE
         private static Random alea;
 
         //variable pour que le menu potion puisse s'ouvrir et se fermer à l'infini//
-        public static int REGLEDUJEU;
+        public static bool REGLEDUJEU;
                    
         //musique//
         public MediaPlayer musique;
@@ -112,10 +112,9 @@ namespace TstSAE
             }
             else // si le bouton règle du jeu est appuyer alors charge les règle du jeu
             {
-                if (REGLEDUJEU == -1)
+                if (REGLEDUJEU == true)
                     Regles();
-            }
-        
+            } 
         }
         
         private void Regles()
@@ -126,7 +125,7 @@ namespace TstSAE
                 FenetreDemarrage();
             if (regles == false)
             {
-                REGLEDUJEU = 0; // recharge le menu quand le bouton ok est cliquer
+                REGLEDUJEU = false; // recharge le menu quand le bouton ok est cliquer
                 FenetreDemarrage();
             }
         }

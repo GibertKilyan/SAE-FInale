@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="background\fondregles.jpg" />
+    <None Remove="background\fondRegles.jpg" />
     <None Remove="background\Logo.png" />
     <None Remove="background\monde1.png" />
     <None Remove="background\monde2.jpg" />
@@ -24,7 +24,6 @@
     <None Remove="BOB\accroupi\bob_accroupi_gauche.png" />
     <None Remove="BOB\accroupi\bob_droite_accroupi_marteau.png" />
     <None Remove="BOB\accroupi\bob_gauche_accroupi_marteau.png" />
-    <None Remove="BOB\bob_arrêt.png" />
     <None Remove="BOB\Bob_droite\bob_droite_marteau1.png" />
     <None Remove="BOB\Bob_droite\bob_droite_marteau2.png" />
     <None Remove="BOB\Bob_droite\bob_droite_marteau3.png" />
@@ -48,16 +47,14 @@
     <None Remove="ennemis\spikeMan_depart.png" />
     <None Remove="ennemis\spikeMan_marche.png" />
     <None Remove="vie\boucliervie.png" />
-    <None Remove="vie\coeur_plein.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="background\Logo.png" />
-    <Resource Include="background\fondregles.jpg" />
+    <Resource Include="background\fondRegles.jpg" />
     <Resource Include="background\monde1.png" />
     <Resource Include="BOB\accroupi\bob_droite_accroupi_marteau.png" />
     <Resource Include="BOB\accroupi\bob_gauche_accroupi_marteau.png" />
-    <Resource Include="BOB\bob_arrêt.png" />
     <Resource Include="BOB\Bob_droite\bob_droite_marteau1.png" />
     <Resource Include="BOB\Bob_droite\bob_droite_marteau2.png" />
     <Resource Include="BOB\Bob_droite\bob_droite_marteau3.png" />
@@ -80,7 +77,6 @@
     <Resource Include="ennemis\spikeMan_depart.png" />
     <Resource Include="ennemis\spikeMan_marche.png" />
     <Resource Include="vie\boucliervie.png" />
-    <Resource Include="vie\coeur_plein.png" />
   </ItemGroup>
 
   <ItemGroup>

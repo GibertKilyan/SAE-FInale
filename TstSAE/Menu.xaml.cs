@@ -28,7 +28,7 @@ namespace TstSAE
 
         private void butRegleJeu_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow.REGLEDUJEU = MainWindow.REGLEDUJEU - 1;
+            MainWindow.REGLEDUJEU = true;
             this.DialogResult = false;
         }
 
