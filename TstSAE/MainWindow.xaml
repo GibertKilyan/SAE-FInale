@@ -103,7 +103,7 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Background="Black"
-                Click="butReprendre_click"
+                Click="ButReprendre_click"
                 Content="Reprendre"
                 Foreground="White"
                 Style="{StaticResource BoutonArrondi}" />
@@ -115,7 +115,7 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Background="Black"
-                Click="butMenu_click"
+                Click="ButMenu_click"
                 Content="Menu"
                 Foreground="White"
                 Style="{StaticResource BoutonArrondi}" />

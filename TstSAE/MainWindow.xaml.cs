@@ -41,7 +41,7 @@ namespace TstSAE
         //Variable qui vont avec les Timer//
         public static readonly int TEMPSCHRONODEPART = 0, INCREMENTATIONTEMPS = 1;
         private int tmps = TEMPSCHRONODEPART;
-        public static readonly int TICKACCELERATION = 10, TICKCHRONO = 1, TICKTEMPSACCROUPI = 300, TICKCOOLDOWN = 500, TICKTIMERPRINCIPAL = 16;
+        public static readonly int TICKACCELERATION = 10, TICKCHRONO = 1, TICKTEMPSACCROUPI = 300, TICKCOOLDOWN = 450, TICKTIMERPRINCIPAL = 16;
         bool indiceCooldown = false;
 
         //collision//
@@ -163,11 +163,11 @@ namespace TstSAE
         //initialisation du monde//
         public void InitialisationMonde()
         {
-            chronoAccroupi();
+            ChronoAccroupi();
             TimerCooldown();
-            tempsEnJeu();
+            TempsEnJeu();
             InitBouclier();
-            jeuTimer();
+            JeuTimer();
             InitialiserTimerAcceleration();
 
             stackPause.Visibility = Visibility.Hidden;
@@ -286,39 +286,42 @@ namespace TstSAE
         {
             timerAcceleration = new DispatcherTimer();
             timerAcceleration.Interval = TimeSpan.FromSeconds(TICKACCELERATION);
-            timerAcceleration.Tick += acceleration;
+            timerAcceleration.Tick += Acceleration;
             timerAcceleration.Start();
         }
-        private void acceleration(object? sender, EventArgs e)
+        private void Acceleration(object? sender, EventArgs e)
         {
             vitesseSpikeMan += INCREMENTVITESSE;
             if (vitesseSpikeMan == VITESSEBASESPIKEMAN)
+            {
+                //Console.WriteLine(vitesseSpikeMan);
                 timerAcceleration.Stop();
+            }
         }
 
         //chrono afficher en haut a gauche//
-        private void tempsEnJeu()
+        private void TempsEnJeu()
         {
             chronoJeu = new DispatcherTimer();
             chronoJeu.Interval = TimeSpan.FromSeconds(TICKCHRONO);
-            chronoJeu.Tick += chrono;
+            chronoJeu.Tick += Chrono;
             chronoJeu.Start();
         }
-        private void chrono(object? sender, EventArgs e)
+        private void Chrono(object? sender, EventArgs e)
         {
             blockTemps.Text = "Temps : " + TimeSpan.FromSeconds(tmps);
             tmps += INCREMENTATIONTEMPS;
         }
 
         //Ce chrono est appeler quand on s'accroupie il fait en sorte de pouvoir rester accroupie maximum 300milisecond avant d'être automatiquement relevé//
-        private void chronoAccroupi()
+        private void ChronoAccroupi()
         {
             tempsAccroupi = new DispatcherTimer();
             tempsAccroupi.Interval = TimeSpan.FromMilliseconds(TICKTEMPSACCROUPI);
-            tempsAccroupi.Tick += arretAccroupi;
+            tempsAccroupi.Tick += ArretAccroupi;
             tempsAccroupi.Start();
         }
-        private void arretAccroupi(object? sender, EventArgs e)
+        private void ArretAccroupi(object? sender, EventArgs e)
         {
             indiceAccroupi = true ; 
             if (indiceAccroupi == true)
@@ -372,16 +375,16 @@ namespace TstSAE
         }
 
         //timer pour le jeu (déplacement bob, ennemis...//
-        private void jeuTimer()
+        private void JeuTimer()
         {
             minuteurJeu = new DispatcherTimer();
             minuteurJeu.Interval = TimeSpan.FromMilliseconds(TICKTIMERPRINCIPAL);
-            minuteurJeu.Tick += jeu;
+            minuteurJeu.Tick += Jeu;
             minuteurJeu.Start();
         }
 
         //jeu//
-        private void jeu(object? sender, EventArgs e)
+        private void Jeu(object? sender, EventArgs e)
         {
             //Bob déplacement et rectangle
             double posBob = Canvas.GetLeft(bob);
@@ -393,7 +396,9 @@ namespace TstSAE
             (int)Canvas.GetTop(bob),
             (int)bob.Width,
             (int)bob.Height);
+            //Console.WriteLine(rBob);
 
+            //Console.WriteLine(accroupi);
             if (accroupi == true)
             {
                 enDeplacement = false;
@@ -437,6 +442,8 @@ namespace TstSAE
                 bob.Source = bobDroiteMarteau[indiceBob];
                 newPosBob = posBob + PASDEBOB;
             }
+            //Console.WriteLine(droite);
+            //Console.WriteLine(droite);
             Canvas.SetLeft(bob, newPosBob);
 
             //marteau
@@ -468,6 +475,7 @@ namespace TstSAE
                     marteau.Visibility = Visibility.Hidden;
                 }
             }
+            //Console.WriteLine(lancer);
 
             //SpikeMan
             for (int i = 0; i < lesSpikeMan.Count; i++)
@@ -492,6 +500,7 @@ namespace TstSAE
                 (int)Canvas.GetTop(lesSpikeMan[i]),
                 (int)lesSpikeMan[i].Width,
                 (int)lesSpikeMan[i].Height);
+                //Console.WriteLine(rSpikeMan);
 
                 if (rSpikeMan.IntersectsWith(rBob))
                 {
@@ -518,6 +527,8 @@ namespace TstSAE
                     marteau.Visibility = Visibility.Hidden;
                     nbScore = nbScore + NOMBRESCOREGAGNER;
                     blockScore.Text = "Score : " + nbScore;
+                    //Console.WriteLine(lancer);
+                    //Console.WriteLine(deplacementMarteau);
                 }
             }
 
@@ -530,6 +541,7 @@ namespace TstSAE
                 (int)Canvas.GetTop(lesAbeillesHaut[i]) - HITBOXABEILLEHAUT,
                 (int)lesAbeillesHaut[i].Width,
                 (int)lesAbeillesHaut[i].Height);
+                //Console.WriteLine(rAbeilleHaut);
 
                 if (rAbeilleHaut.IntersectsWith(rBob) && accroupi == false)
                 {
@@ -573,12 +585,14 @@ namespace TstSAE
             {
                 gauche = false;
                 enDeplacement = false;
+                //Console.WriteLine(gauche);
             }
 
             if (e.Key == Key.D)
             {
                 droite = false;
                 enDeplacement = false;
+                //Console.WriteLine(droite);
             }    
         }
         private void Window_KeyDown(object sender, KeyEventArgs e)
@@ -589,7 +603,11 @@ namespace TstSAE
                  enDeplacement = true;
                  regardDroite = false;
                  accroupi = false;
-             }
+                //Console.WriteLine(gauche);
+                //Console.WriteLine(enDeplacement);
+                //Console.WriteLine(regardDroite);
+                //Console.WriteLine(accroupi);
+            }
 
              if (e.Key == Key.D)
              {
@@ -597,15 +615,21 @@ namespace TstSAE
                  enDeplacement = true;
                  regardDroite = true;
                  accroupi = false;
-             }
+                //Console.WriteLine(droite);
+                //Console.WriteLine(enDeplacement);
+                //Console.WriteLine(regardDroite);
+                //Console.WriteLine(accroupi);
+            }
 
-             if (e.Key == Key.Space && cooldown == false && pause == false)
+            if (e.Key == Key.Space && cooldown == false && pause == false)
              {
                  accroupi = true; 
                  cooldown = true;
                  tempsAttente.Start();
                  tempsAccroupi.Start();
-             }
+                //Console.WriteLine(cooldown);
+                //Console.WriteLine(accroupi);
+            }
 
             if (e.Key == Key.Escape)
             {
@@ -623,6 +647,8 @@ namespace TstSAE
                 marteau.Visibility = Visibility.Visible;
                 Canvas.SetLeft(marteau, Canvas.GetLeft(bob));
                 Canvas.SetTop(marteau, Canvas.GetTop(bob) + bob.ActualWidth - MARTEAUHITBOXBOB);
+                //Console.WriteLine(lancer);
+                //Console.WriteLine(deplacementMarteau);
             }
         }
 
@@ -649,12 +675,12 @@ namespace TstSAE
             }
         }
 
-        private void butReprendre_click(object sender, RoutedEventArgs e)
+        private void ButReprendre_click(object sender, RoutedEventArgs e)
         {
             Pause();
         }
 
-        private void butMenu_click(object sender, RoutedEventArgs e)
+        private void ButMenu_click(object sender, RoutedEventArgs e)
         {
             ResetVariables();
             this.Hide();
@@ -692,6 +718,17 @@ namespace TstSAE
             lesSpikeMan.Clear();
             lesAbeillesHaut.Clear();
             pause = false;
+
+            //Console.WriteLine(droite);
+            //Console.WriteLine(gauche);
+            //Console.WriteLine(lancer);
+            //Console.WriteLine(accroupi);
+            //Console.WriteLine(deplacementMarteau);
+            //Console.WriteLine(pause);
+            //Console.WriteLine(nbScore);
+            //Console.WriteLine(tmps);
+            //Console.WriteLine(nbBouclier);
+            //Console.WriteLine(vitesseSpikeMan);
         }
 
         //fin du jeu//
