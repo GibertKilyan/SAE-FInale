@@ -33,17 +33,23 @@ namespace TstSAE
 
         //Indices pour animation//
         private int indiceSpikeMan, indiceBob, indiceMarteau;
-        private int indiceBobMax = 7, indiceMarteauMax = 4, indiceSpikeManMax = 40;
+        public static readonly int INDICEBOBMAX = 7, INDICEMARTEAUMAX = 4, INDICESPIKEMANMAX = 40;
+        public static readonly int INDICEBOBDEPART = 0, INDICEMARTEAUDEPART = 0, INDICESPIKEMANDEPART = 0;
+        public static readonly int NOMBREIMAGEBOBTABLEAU = 7, NOMBREIMAGEPIKEMANTABLEAU = 40, NOMBREIMAGEMARTEAUTABLEAU = 4, NOMBREIMAGEBOUCLIERTABLEAU = 3;
         bool indiceAccroupi = false;
 
-        //Indices qui vont avec les Timer//
-        private int tmps = 0, indiceCooldown;
+        //Variable qui vont avec les Timer//
+        public static readonly int TEMPSCHRONODEPART = 0, INCREMENTATIONTEMPS = 1;
+        private int tmps = TEMPSCHRONODEPART;
+        public static readonly int TICKACCELERATION = 10, TICKCHRONO = 1, TICKTEMPSACCROUPI = 300, TICKCOOLDOWN = 500, TICKTIMERPRINCIPAL = 16;
+        bool indiceCooldown = false;
 
-        //indice collision//
-        private int nbScore = 0, nbBouclier = 3;
+        //collision//
+        public static readonly int NOMBREBOUCLIERBASE = 3, SCOREDEPART = 0, NOMBREMINIMUMBOUCLIER = 1, NOMBRESCOREGAGNER = 1, NOMBREBOUCLIERRETIRER = 1;
+        private int nbScore = SCOREDEPART, nbBouclier = NOMBREBOUCLIERBASE;
 
         //Nombre Ennemis//
-        private int nbSpikeMan = 3, nbHautAbeilles = 2;
+        private static readonly int NBSPIKEMAN = 3, NBHAUTABEILLES = 2;
 
         //booléen//
         private bool gauche = false, droite = false, accroupi = false, enDeplacement = false, regardDroite = false;
@@ -52,12 +58,11 @@ namespace TstSAE
 
         //Vitesse//
         public static readonly int PASDEBOB = 5, PASMARTEAU = 8;
-        public static readonly double incrementVitesse = 1;
-        private double vitesseSpikeMan = 3;
-        double vitesseEnnemiMax = 8, vitesseAbeille = 8;
+        public static readonly double INCREMENTVITESSE = 1, VITESSEBASESPIKEMAN = 3, VITESSEMAXSPIKEMAN = 8, VITESSEABEILLEHAUT = 8;
+        private double vitesseSpikeMan = VITESSEBASESPIKEMAN;
 
         //HitBox//
-        public static readonly int HITBOXMARTEAUGAUCHE = 70, HITBOXABEILLEHAUT = 120, MARTEAUHITBOXBOB = 20;
+        public static readonly int HITBOXMARTEAUGAUCHE = 70, HITBOXABEILLEHAUT = 120, MARTEAUHITBOXBOB = 20, HITBOXBOBGAUCHE = 70;
 
         //Random//
         private static Random alea;
@@ -71,10 +76,12 @@ namespace TstSAE
  
         //position monde//
         public static readonly int HAUTEURBOBMONDE = 418, HAUTEURSPIKEMAN = 240, MARTEAUHORSCANVA = 3000;
-        public static readonly int HAUTEURALEATOIRE = -300, GAUCHEDUCANVAALEATOIRE = -1000, GAUCHECANVAALEATOIRE2 = -100,DROITEDUCANVAALEATOIRE = 2200, HAUTCANVA = 0;
+        public static readonly int HAUTEURALEATOIRE = -300, GAUCHEDUCANVAALEATOIRE = -1000, GAUCHECANVAALEATOIRE2 = -100, DROITEDUCANVAALEATOIRE = 2200, HAUTCANVA = 0;
 
         //Autre variable//
-        private int resteBouclier = 1;
+        private static readonly int RESTEBOUCLIER = 1;
+
+
 
         public MainWindow()
         {
@@ -182,7 +189,7 @@ namespace TstSAE
             Canvas.SetTop(bob, CanvaFond.ActualHeight - HAUTEURBOBMONDE);
 
             //images de spikeman + place sur le canva 
-            for (int i = 0; i < nbSpikeMan; i++)
+            for (int i = 0; i < NBSPIKEMAN; i++)
             {
                 spikeM = new Image();
                 spikeM.Source = spikeManImages[0];
@@ -205,7 +212,7 @@ namespace TstSAE
             marteau.Visibility = Visibility.Hidden;
 
             //images abeilles qui viennent du ciel + place sur la canva 
-            for (int i = 0; i < nbHautAbeilles; i++)
+            for (int i = 0; i < NBHAUTABEILLES; i++)
             {
                 abeilleHaut = new Image();
                 abeilleHaut.Source = abeillesImage;
@@ -222,14 +229,14 @@ namespace TstSAE
         //initialisation image de bob pour animations de marche//
         private void InitBobImage()
         {
-            bobDroiteMarteau = new BitmapImage[7];
-            for (int i = 0; i < 7; i++)
+            bobDroiteMarteau = new BitmapImage[NOMBREIMAGEBOBTABLEAU];
+            for (int i = 0; i < bobDroiteMarteau.Length; i++)
             {
                 bobDroiteMarteau[i] = new BitmapImage(new Uri($"pack://application:,,,/BOB/Bob_droite/bob_droite_marteau{i + 1}.png"));
             }
 
-            bobGaucheMarteau = new BitmapImage[7];
-            for (int i = 0; i < 7; i++)
+            bobGaucheMarteau = new BitmapImage[NOMBREIMAGEBOBTABLEAU];
+            for (int i = 0; i < bobGaucheMarteau.Length; i++)
             {
                 bobGaucheMarteau[i] = new BitmapImage(new Uri($"pack://application:,,,/BOB/Bob_gauche/bob_gauche_marteau{i + 1}.png"));
             }
@@ -238,11 +245,11 @@ namespace TstSAE
         //initialisation ennemis//
         private void InitImageEnnemis()
         {
-            spikeManImages = new BitmapImage[40];
+            spikeManImages = new BitmapImage[NOMBREIMAGEPIKEMANTABLEAU];
             for (int i = 0; i < spikeManImages.Length; i++)
             {
-                //on stock ici 20 fois la même image dans les 20première case puis 20 fois une autre l'objectif est de faire une animation mais pas top rapide dans le jeu
-                //seul chose du code qui n'est normalement pas optimisé 
+                //on stock ici 20 fois la même image dans les 20 premières cases puis 20 fois une autre l'objectif est de faire une animation mais pas top rapide dans le jeu
+                //pas optimisé
                 if (i <= 20)
                 {
                     spikeManImages[i] = new BitmapImage(new Uri("pack://application:,,,/ennemis/spikeman_depart.png"));
@@ -258,7 +265,7 @@ namespace TstSAE
         private void InitBouclier()
         {
             //stock les 3vie présent sur la mainWindow dans un tableau
-            lesBoucliers = new Image[3];
+            lesBoucliers = new Image[NOMBREIMAGEBOUCLIERTABLEAU];
             lesBoucliers[0] = bouclier1;
             lesBoucliers[1] = bouclier2;
             lesBoucliers[2] = bouclier3;
@@ -267,8 +274,8 @@ namespace TstSAE
         //initialisation marteau//
         private void InitMarteauImage()
         {          
-            marteauImages = new BitmapImage[4];
-            for (int i = 0; i < 4; i++)
+            marteauImages = new BitmapImage[NOMBREIMAGEMARTEAUTABLEAU];
+            for (int i = 0; i < NOMBREIMAGEMARTEAUTABLEAU; i++)
             {
                 marteauImages[i] = new BitmapImage(new Uri($"pack://application:,,,/Bob/marteau_gauche/marteau_inv{i}.png"));
             }
@@ -278,14 +285,14 @@ namespace TstSAE
         private void InitialiserTimerAcceleration()
         {
             timerAcceleration = new DispatcherTimer();
-            timerAcceleration.Interval = TimeSpan.FromSeconds(10);
+            timerAcceleration.Interval = TimeSpan.FromSeconds(TICKACCELERATION);
             timerAcceleration.Tick += acceleration;
             timerAcceleration.Start();
         }
         private void acceleration(object? sender, EventArgs e)
         {
-            vitesseSpikeMan += incrementVitesse;
-            if (vitesseSpikeMan == vitesseEnnemiMax)
+            vitesseSpikeMan += INCREMENTVITESSE;
+            if (vitesseSpikeMan == VITESSEBASESPIKEMAN)
                 timerAcceleration.Stop();
         }
 
@@ -293,21 +300,21 @@ namespace TstSAE
         private void tempsEnJeu()
         {
             chronoJeu = new DispatcherTimer();
-            chronoJeu.Interval = TimeSpan.FromSeconds(1);
+            chronoJeu.Interval = TimeSpan.FromSeconds(TICKCHRONO);
             chronoJeu.Tick += chrono;
             chronoJeu.Start();
         }
         private void chrono(object? sender, EventArgs e)
         {
             blockTemps.Text = "Temps : " + TimeSpan.FromSeconds(tmps);
-            tmps += 1;
+            tmps += INCREMENTATIONTEMPS;
         }
 
         //Ce chrono est appeler quand on s'accroupie il fait en sorte de pouvoir rester accroupie maximum 300milisecond avant d'être automatiquement relevé//
         private void chronoAccroupi()
         {
             tempsAccroupi = new DispatcherTimer();
-            tempsAccroupi.Interval = TimeSpan.FromMilliseconds(300);
+            tempsAccroupi.Interval = TimeSpan.FromMilliseconds(TICKTEMPSACCROUPI);
             tempsAccroupi.Tick += arretAccroupi;
             tempsAccroupi.Start();
         }
@@ -323,15 +330,15 @@ namespace TstSAE
         private void TimerCooldown()
         {
             tempsAttente = new DispatcherTimer();
-            tempsAttente.Interval = TimeSpan.FromMilliseconds(500);
+            tempsAttente.Interval = TimeSpan.FromMilliseconds(TICKCOOLDOWN);
             tempsAttente.Tick += TempsAttente;
             tempsAttente.Start();
         }
         private void TempsAttente(object? sender, EventArgs e)
         {
-            indiceCooldown += 1;
-            if (indiceCooldown == 1)
-                indiceCooldown = 0;
+            indiceCooldown = true;
+            if (indiceCooldown == true)
+                indiceCooldown = false;
             cooldown = false;
         }       
 
@@ -359,8 +366,8 @@ namespace TstSAE
                 directionY /= distance;
 
                 // Déplacer l'ennemi
-                Canvas.SetLeft(ennemi, posAbeilleX + directionX * vitesseAbeille);
-                Canvas.SetTop(ennemi, posAbeilleY + directionY * vitesseAbeille);
+                Canvas.SetLeft(ennemi, posAbeilleX + directionX * VITESSEABEILLEHAUT);
+                Canvas.SetTop(ennemi, posAbeilleY + directionY * VITESSEABEILLEHAUT);
             }
         }
 
@@ -368,7 +375,7 @@ namespace TstSAE
         private void jeuTimer()
         {
             minuteurJeu = new DispatcherTimer();
-            minuteurJeu.Interval = TimeSpan.FromMilliseconds(16);
+            minuteurJeu.Interval = TimeSpan.FromMilliseconds(TICKTIMERPRINCIPAL);
             minuteurJeu.Tick += jeu;
             minuteurJeu.Start();
         }
@@ -382,7 +389,7 @@ namespace TstSAE
             double newPosBob = posBob;
             double newPosSpike = posSpike;
 
-            System.Drawing.Rectangle RBob = new System.Drawing.Rectangle((int)Canvas.GetLeft(bob) + 70,
+            System.Drawing.Rectangle rBob = new System.Drawing.Rectangle((int)Canvas.GetLeft(bob) + HITBOXBOBGAUCHE,
             (int)Canvas.GetTop(bob),
             (int)bob.Width,
             (int)bob.Height);
@@ -412,9 +419,9 @@ namespace TstSAE
             {
                 enDeplacement = true;
                 indiceBob++;
-                if (indiceBob == indiceBobMax)
+                if (indiceBob == INDICEBOBMAX)
                 {
-                    indiceBob = 0;
+                    indiceBob = INDICEBOBDEPART;
                 }
                 bob.Source = bobGaucheMarteau[indiceBob];
                 newPosBob = posBob - PASDEBOB;
@@ -423,9 +430,9 @@ namespace TstSAE
             {
                 enDeplacement = true;
                 indiceBob++;
-                if (indiceBob == indiceBobMax)
+                if (indiceBob == INDICEBOBMAX)
                 {
-                    indiceBob = 0;
+                    indiceBob = INDICEBOBDEPART;
                 }
                 bob.Source = bobDroiteMarteau[indiceBob];
                 newPosBob = posBob + PASDEBOB;
@@ -446,9 +453,9 @@ namespace TstSAE
                 marteau.Visibility = Visibility.Visible;
                 deplacementMarteau = true;
                 indiceMarteau++;
-                if (indiceMarteau == indiceMarteauMax)
+                if (indiceMarteau == INDICEMARTEAUMAX)
                 {
-                    indiceMarteau = 0;
+                    indiceMarteau = INDICEMARTEAUDEPART;
                 }
                 marteau.Source = marteauImages[indiceMarteau];
                 newposmart = posmart - PASMARTEAU;
@@ -468,9 +475,9 @@ namespace TstSAE
                 double posEnnemi = Canvas.GetLeft(lesSpikeMan[i]);
 
                 indiceSpikeMan++;
-                if (indiceSpikeMan == indiceSpikeManMax)
+                if (indiceSpikeMan == INDICESPIKEMANMAX)
                 {
-                    indiceSpikeMan = 0;
+                    indiceSpikeMan = INDICESPIKEMANDEPART;
                 }
                 lesSpikeMan[i].Source = spikeManImages[indiceSpikeMan];
 
@@ -486,12 +493,12 @@ namespace TstSAE
                 (int)lesSpikeMan[i].Width,
                 (int)lesSpikeMan[i].Height);
 
-                if (rSpikeMan.IntersectsWith(RBob))
+                if (rSpikeMan.IntersectsWith(rBob))
                 {
                     Canvas.SetLeft(lesSpikeMan[i], alea.Next(GAUCHEDUCANVAALEATOIRE, GAUCHECANVAALEATOIRE2));
-                    if (nbBouclier >= resteBouclier)
+                    if (nbBouclier >= RESTEBOUCLIER)
                     {
-                        lesBoucliers[nbBouclier - 1].Visibility = Visibility.Hidden;
+                        lesBoucliers[nbBouclier - NOMBREBOUCLIERRETIRER].Visibility = Visibility.Hidden;
                         nbBouclier--;
                         InitSon();
                     }
@@ -509,7 +516,7 @@ namespace TstSAE
                     lancer = false;
                     deplacementMarteau = false;
                     marteau.Visibility = Visibility.Hidden;
-                    nbScore = nbScore + 1;
+                    nbScore = nbScore + NOMBRESCOREGAGNER;
                     blockScore.Text = "Score : " + nbScore;
                 }
             }
@@ -524,13 +531,13 @@ namespace TstSAE
                 (int)lesAbeillesHaut[i].Width,
                 (int)lesAbeillesHaut[i].Height);
 
-                if (rAbeilleHaut.IntersectsWith(RBob) && accroupi == false)
+                if (rAbeilleHaut.IntersectsWith(rBob) && accroupi == false)
                 {
-                    Canvas.SetTop(lesAbeillesHaut[i], alea.Next(-300, 0));
-                    Canvas.SetLeft(lesAbeillesHaut[i], alea.Next(-1000, 2200));
-                    if (nbBouclier >= 1)
+                    Canvas.SetTop(lesAbeillesHaut[i], alea.Next(HAUTEURALEATOIRE, HAUTCANVA));
+                    Canvas.SetLeft(lesAbeillesHaut[i], alea.Next(GAUCHEDUCANVAALEATOIRE, DROITEDUCANVAALEATOIRE));
+                    if (nbBouclier >= NOMBREMINIMUMBOUCLIER)
                     {
-                        lesBoucliers[nbBouclier - 1].Visibility = Visibility.Hidden;
+                        lesBoucliers[nbBouclier - NOMBREBOUCLIERRETIRER].Visibility = Visibility.Hidden;
                         nbBouclier--;
                         InitSon();
                     }
@@ -539,11 +546,11 @@ namespace TstSAE
                         FinDuJeuMonde();
                     }
                 }
-                if (rAbeilleHaut.IntersectsWith(RBob) && accroupi == true)
+                if (rAbeilleHaut.IntersectsWith(rBob) && accroupi == true)
                 {
                     Canvas.SetTop(lesAbeillesHaut[i], alea.Next(HAUTEURALEATOIRE, HAUTCANVA));
                     Canvas.SetLeft(lesAbeillesHaut[i], alea.Next(-GAUCHEDUCANVAALEATOIRE, DROITEDUCANVAALEATOIRE));
-                    nbScore = nbScore + 1;
+                    nbScore = nbScore + NOMBRESCOREGAGNER;
                     blockScore.Text = "Score : " + nbScore;
                 }
 
@@ -669,11 +676,11 @@ namespace TstSAE
             timerAcceleration.Stop();
             CanvaFond.Children.Clear();
 
-            nbBouclier = 3;
-            nbScore = 0;
-            vitesseSpikeMan = 4;
-            tmps = 0;
+            nbBouclier = NOMBREBOUCLIERBASE;           
+            vitesseSpikeMan = VITESSEBASESPIKEMAN;
 
+            nbScore = SCOREDEPART;
+            tmps = TEMPSCHRONODEPART;
             blockTemps.Text = "Temps : " + TimeSpan.FromSeconds(tmps);
             blockScore.Text = "Score : " + nbScore;
 
