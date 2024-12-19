@@ -8,9 +8,7 @@
     Height="200"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen">
-    <Grid Margin="10">
-
-
+    <Grid x:Name="gridVolume" Margin="10">
         <TextBlock
             x:Name="blockReglage"
             Margin="0,10,0,0"
@@ -19,8 +17,6 @@
             FontSize="16"
             FontWeight="Bold"
             Text="Réglage du volume" />
-
-
         <Slider
             x:Name="VolumeSlider"
             Height="20"
@@ -40,6 +36,7 @@
 
 
         <StackPanel
+            x:Name="stackBoutonVolume"
             Margin="0,0,0,10"
             HorizontalAlignment="Center"
             VerticalAlignment="Bottom"
@@ -47,6 +44,7 @@
             <Button
                 x:Name="ButOK"
                 Width="100"
+                Margin="0,0,20,0"
                 Click="ButOK_Click"
                 Content="Valider" />
             <Button

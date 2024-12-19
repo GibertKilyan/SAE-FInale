@@ -52,7 +52,7 @@
                 FontSize="16"
                 Text=" ⌨️ TOUCHES ⌨️"
                 TextWrapping="Wrap" />
-            <TextBlock
+            <TextBlock x:Name="blockGauche"
                 Width="140"
                 Height="15"
                 Margin="5,40,355,0"
@@ -60,26 +60,33 @@
                 FontFamily="Arial Black"
                 Text="Q - Aller a gauche ⏪ "
                 TextWrapping="Wrap" />
-            <TextBlock
+            <TextBlock x:Name="blockDroite"
                 Width="130"
                 Height="15"
                 Margin="0,20,360,0"
                 FontFamily="Arial Black"
                 Text="D - Aller a droite ⏩ "
                 TextWrapping="Wrap" />
-            <TextBlock
+            <TextBlock x:Name="blockEspace"
                 Width="156"
                 Height="15"
                 Margin="0,20,335,0"
                 FontFamily="Arial Black"
                 Text="Espace - S'accroupir ⏬ "
                 TextWrapping="Wrap" />
-            <TextBlock
+            <TextBlock x:Name="blockClickGauche"
                 Width="235"
                 Height="15"
                 Margin="0,20,325,0"
                 FontFamily="Arial Black"
                 Text="Clic Gauche - Lancer le marteau 🔨"
+                TextWrapping="Wrap" />
+            <TextBlock x:Name="blockEchap"
+                Width="235"
+                Height="15"
+                Margin="0,20,325,0"
+                FontFamily="Arial Black"
+                Text="Echap - Mettre le jeu en pause"
                 TextWrapping="Wrap" />
             <TextBlock
                 Width="133"
@@ -90,21 +97,21 @@
                 FontSize="16"
                 Text=" 📜 REGLES 📜 "
                 TextWrapping="Wrap" />
-            <TextBlock
+            <TextBlock x:Name="blockBouclier"
                 Width="188"
                 Height="41"
                 Margin="0,-250,-300,0"
                 FontFamily="Arial Black"
-                Text=" 🛡️ Vous perdez une vie lorsque  vous touchez un ennemi ( 3 vie)"
+                Text=" 🛡️ Vous perdez un bouclier lorsque  vous touchez un ennemi ( 3 bouclier)"
                 TextWrapping="Wrap" />
-            <TextBlock
+            <TextBlock x:Name="blockEnnemisVolants"
                 Width="180"
                 Height="47"
                 Margin="0,-140,-295,0"
                 FontFamily="Arial Black"
                 Text=" 🐝 Pour eviter les ennemis volants vous devez vous accroupir"
                 TextWrapping="Wrap" />
-            <TextBlock
+            <TextBlock x:Name="blockMarteau"
                 Width="180"
                 Height="47"
                 Margin="0,-40,-295,0"

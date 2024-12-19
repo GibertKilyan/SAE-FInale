@@ -30,8 +30,7 @@
             </Setter>
         </Style>
     </Window.Resources>
-    <Grid>
-
+    <Grid x:Name="gridMenu">
         <Grid.Background>
             <ImageBrush ImageSource="/background/monde1.png" />
         </Grid.Background>
@@ -65,13 +64,13 @@
                 Foreground="White"
                 Style="{StaticResource BoutonArrondi}" />
         </StackPanel>
-        <StackPanel Margin="252,10,252,203">
+        <StackPanel x:Name="stackLogo" Margin="252,10,252,203">
             <StackPanel.Background>
                 <ImageBrush ImageSource="/background/Logo.png" />
             </StackPanel.Background>
         </StackPanel>
-        <Canvas>
-            <Menu
+        <Canvas x:Name="canvaSon">
+            <Menu x:Name="menuSon"
                 Height="20"
                 Margin="0,0,1125,0"
                 VerticalAlignment="Top">
@@ -79,7 +78,7 @@
                     <ImageBrush />
                 </Menu.Background>
 
-                <MenuItem
+                <MenuItem x:Name="itemSon"
                     Width="73"
                     Height="16"
                     Header="_Paramètres">
