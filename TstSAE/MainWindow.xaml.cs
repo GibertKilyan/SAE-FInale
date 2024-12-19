@@ -70,7 +70,7 @@ namespace TstSAE
         public MediaPlayer sonDegats;
  
         //position monde//
-        public static readonly int HAUTEURBOBMONDE = 418, HAUTEURSPIKEMAN = 240, MARTEAUHORSCANVA = 3000;
+        public static readonly int HAUTEURBOBMONDE = 438, HAUTEURSPIKEMAN = 255, MARTEAUHORSCANVA = 3000;
         public static readonly int HAUTEURALEATOIRE = -300, GAUCHEDUCANVAALEATOIRE = -1000, GAUCHECANVAALEATOIRE2 = -100,DROITEDUCANVAALEATOIRE = 2200, HAUTCANVA = 0;
 
         //Autre variable//
