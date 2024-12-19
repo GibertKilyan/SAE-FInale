@@ -55,12 +55,9 @@
             <Image x:Name="bouclier2" Source="/vie/boucliervie.png" Width="90" Height="90" />
             <Image x:Name="bouclier3" Source="/vie/boucliervie.png" Width="90" Height="90" />
         </StackPanel>
-        <StackPanel x:Name="stackPause" Width="400" Height="300" Margin="405,92,395,92">
-            <StackPanel.Background>
-                <ImageBrush/>
-            </StackPanel.Background>
-            <TextBlock Width="200" Height="30" FontSize="20" TextAlignment="Center" Margin="0,130,0,0"><Run Language="fr-fr" Text="Pause"/></TextBlock>
-            <Button x:Name="butReprendre" Content="reprendre" Width="200" Height="30" Margin="0,30,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource BoutonArrondi}" Click="butReprendre_click" Background="Black" Foreground="White"/>
+        <StackPanel x:Name="stackPause" Width="300" Height="200" Margin="405,200,395,92" Background="#4C000000">
+            <TextBlock Width="200" Height="30" FontSize="20" TextAlignment="Center" Margin="0,30,0,0"><Run Language="fr-fr" Text="Pause"/></TextBlock>
+            <Button x:Name="butReprendre" Content="Reprendre" Width="200" Height="30" Margin="0,30,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource BoutonArrondi}" Click="butReprendre_click" Background="Black" Foreground="White"/>
             <Button x:Name="butMenu" Content="Menu" Width="200" Height="30" Margin="0,30,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource BoutonArrondi}" Click="butMenu_click" Background="Black" Foreground="White"/>
         </StackPanel>
     </Grid>
