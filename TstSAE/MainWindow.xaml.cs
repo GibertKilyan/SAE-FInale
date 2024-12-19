@@ -69,7 +69,7 @@ namespace TstSAE
         private static MediaPlayer musique;
         private static MediaPlayer sonDegats;
         //position monde//
-        public static readonly int HAUTEURBOBMONDE = 440, HAUTEURSPIKEMAN = 257, MARTEAUHORSCANVA = 3000;
+        public static readonly int HAUTEURBOBMONDE = 418, HAUTEURSPIKEMAN = 240, MARTEAUHORSCANVA = 3000;
         public static readonly int HAUTEURALEATOIRE = -300, GAUCHEDUCANVAALEATOIRE = -1000, GAUCHECANVAALEATOIRE2 = -100,DROITEDUCANVAALEATOIRE = 2200, HAUTCANVA = 0;
 
         //Autre variable//
@@ -162,7 +162,7 @@ namespace TstSAE
             chronoAccroupi();
             TimerCooldown();
             tempsEnJeu();
-            initVie();
+            InitBouclier();
             jeuTimer();
             InitialiserTimerAcceleration();
 
@@ -256,7 +256,7 @@ namespace TstSAE
         }
 
         //initialisation vie//
-        private void initVie()
+        private void InitBouclier()
         {
             //stock les 3vie présent sur la mainWindow dans un tableau
             lesBoucliers = new Image[3];
@@ -273,15 +273,6 @@ namespace TstSAE
             {
                 marteauImages[i] = new BitmapImage(new Uri($"pack://application:,,,/Bob/marteau_gauche/marteau_inv{i}.png"));
             }
-        }
-
-        //timer pour le jeu (déplacement bob, ennemis...//
-        private void jeuTimer()
-        {
-            minuteurJeu = new DispatcherTimer();
-            minuteurJeu.Interval = TimeSpan.FromMilliseconds(16);
-            minuteurJeu.Tick += jeu;
-            minuteurJeu.Start();
         }
 
         //timer spikeman pour augmenter la vitesse au fil du temps// 
@@ -373,6 +364,15 @@ namespace TstSAE
             }
         }
 
+        //timer pour le jeu (déplacement bob, ennemis...//
+        private void jeuTimer()
+        {
+            minuteurJeu = new DispatcherTimer();
+            minuteurJeu.Interval = TimeSpan.FromMilliseconds(16);
+            minuteurJeu.Tick += jeu;
+            minuteurJeu.Start();
+        }
+
         //jeu//
         private void jeu(object? sender, EventArgs e)
         {
@@ -408,29 +408,29 @@ namespace TstSAE
                     bob.Source = bobDroiteMarteau[indiceBob];
             }
 
-            if (gauche == true && (posBob + PASDEBOB > 0) && pause == false )
-             {
-                 enDeplacement = true;
-                 indiceBob++;
-                 if (indiceBob == indiceBobMax)
-                 {
-                     indiceBob = 0;
-                 }
-                 bob.Source = bobGaucheMarteau[indiceBob];
-                 newPosBob = posBob - PASDEBOB;
-             }
-
-             if (droite == true && (posBob + PASDEBOB) < (CanvaFond.ActualWidth - bob.ActualWidth) && pause == false)
-             {
-                 enDeplacement = true;
-                 indiceBob++;
-                 if (indiceBob == indiceBobMax)
-                 {
+            if (gauche == true && (posBob + PASDEBOB > 0) && pause == false)
+            {
+                enDeplacement = true;
+                indiceBob++;
+                if (indiceBob == indiceBobMax)
+                {
                     indiceBob = 0;
-                 }
-                 bob.Source = bobDroiteMarteau[indiceBob];
-                 newPosBob = posBob + PASDEBOB;
-             }
+                }
+                bob.Source = bobGaucheMarteau[indiceBob];
+                newPosBob = posBob - PASDEBOB;
+            }
+
+            if (droite == true && (posBob + PASDEBOB) < (CanvaFond.ActualWidth - bob.ActualWidth) && pause == false)
+            {
+                enDeplacement = true;
+                indiceBob++;
+                if (indiceBob == indiceBobMax)
+                {
+                    indiceBob = 0;
+                }
+                bob.Source = bobDroiteMarteau[indiceBob];
+                newPosBob = posBob + PASDEBOB;
+            }
             Canvas.SetLeft(bob, newPosBob);
 
             //marteau
@@ -505,7 +505,7 @@ namespace TstSAE
 
                 if (rSpikeMan.IntersectsWith(rMarteau))
                 {
-                    
+
                     Canvas.SetLeft(lesSpikeMan[i], alea.Next(GAUCHEDUCANVAALEATOIRE, GAUCHECANVAALEATOIRE2));
                     Canvas.SetLeft(marteau, MARTEAUHORSCANVA);
                     lancer = false;
@@ -544,7 +544,7 @@ namespace TstSAE
                 if (rAbeilleHaut.IntersectsWith(RBob) && accroupi == true)
                 {
                     Canvas.SetTop(lesAbeillesHaut[i], alea.Next(HAUTEURALEATOIRE, HAUTCANVA));
-                    Canvas.SetLeft(lesAbeillesHaut[i], alea.Next(-GAUCHEDUCANVAALEATOIRE, DROITEDUCANVAALEATOIRE));                    
+                    Canvas.SetLeft(lesAbeillesHaut[i], alea.Next(-GAUCHEDUCANVAALEATOIRE, DROITEDUCANVAALEATOIRE));
                     nbScore = nbScore + 1;
                     blockScore.Text = "Score : " + nbScore;
                 }
@@ -557,7 +557,7 @@ namespace TstSAE
                 if (cooldown == false)
                 {
                     tempsAttente.Stop();
-                }               
+                }
             }
         }
 
@@ -580,7 +580,7 @@ namespace TstSAE
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             
-             if (e.Key == Key.Q && pause == false)
+             if (e.Key == Key.Q)
              {
                  gauche = true;
                  enDeplacement = true;
@@ -588,7 +588,7 @@ namespace TstSAE
                  accroupi = false;
              }
 
-             if (e.Key == Key.D && pause == false)
+             if (e.Key == Key.D)
              {
                  droite = true;
                  enDeplacement = true;
@@ -628,14 +628,16 @@ namespace TstSAE
         {
             if (pause == true)
             {
-                minuteurJeu.Stop();
-                chronoJeu.Stop();
+                minuteurJeu.Start();
+                chronoJeu.Start();
+                timerAcceleration.Start();
                 pause = false;
             }
             else if (pause == false)
             {
-                minuteurJeu.Start();
-                chronoJeu.Start();
+                minuteurJeu.Stop();
+                chronoJeu.Stop();
+                timerAcceleration.Stop();
                 pause = true;
             }
         }
