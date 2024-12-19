@@ -108,8 +108,8 @@ namespace TstSAE
 
             if (result == true) //si dans le menu la fonction monde est appuyer alors charge le monde 1
             {
-                InitialisationMonde();
                 this.Show();
+                InitialisationMonde();
             }
             else // si le bouton règle du jeu est appuyer alors charge les règle du jeu
             {
@@ -153,9 +153,7 @@ namespace TstSAE
            "Son/sondegat.mp3"));
             sonDegats.Volume = 1.0;
             sonDegats.Play();
-
-        }
-        
+        }    
 
         //initialisation du monde//
         public void InitialisationMonde()
@@ -166,6 +164,8 @@ namespace TstSAE
             InitBouclier();
             jeuTimer();
             InitialiserTimerAcceleration();
+
+            stackPause.Visibility = Visibility.Hidden;
 
             //image de fond du monde
             monde = new Image();
@@ -626,6 +626,8 @@ namespace TstSAE
         {
             if (pause == true)
             {
+                //fait disparaitre le menu pause et relance les chrono
+                stackPause.Visibility = Visibility.Hidden;
                 minuteurJeu.Start();
                 chronoJeu.Start();
                 timerAcceleration.Start();
@@ -633,11 +635,58 @@ namespace TstSAE
             }
             else if (pause == false)
             {
+                //fait apparaitre le menu pause et met en pause les chrono
+                stackPause.Visibility = Visibility.Visible;
                 minuteurJeu.Stop();
                 chronoJeu.Stop();
                 timerAcceleration.Stop();
                 pause = true;
             }
+        }
+
+        private void butReprendre_click(object sender, RoutedEventArgs e)
+        {
+            Pause();
+        }
+
+        private void butMenu_click(object sender, RoutedEventArgs e)
+        {
+            ResetVariables();
+            this.Hide();
+
+            //recharge le menu de démarage
+            FenetreDemarrage();
+        }
+
+        //rejouer
+        private void ResetVariables()
+        {
+            //on reinitialise tout
+            bouclier1.Visibility = Visibility.Visible;
+            bouclier2.Visibility = Visibility.Visible;
+            bouclier3.Visibility = Visibility.Visible;
+
+            minuteurJeu.Stop();
+            chronoJeu.Stop();
+            timerAcceleration.Stop();
+            CanvaFond.Children.Clear();
+
+            nbBouclier = 3;
+            nbScore = 0;
+            vitesseSpikeMan = 4;
+            tmps = 0;
+
+            blockTemps.Text = "Temps : " + TimeSpan.FromSeconds(tmps);
+            blockScore.Text = "Score : " + nbScore;
+
+            droite = false;
+            gauche = false;
+            accroupi = false;
+            lancer = false;
+            deplacementMarteau = false;
+            lesSpikeMan.Clear();
+            lesAbeillesHaut.Clear();
+            pause = false;
         }
 
         //fin du jeu//
@@ -650,31 +699,7 @@ namespace TstSAE
 
             if (result == MessageBoxResult.Yes)
             {
-                //on reinitialise tout et on relance le monde
-                bouclier1.Visibility = Visibility.Visible;
-                bouclier2.Visibility = Visibility.Visible;
-                bouclier3.Visibility = Visibility.Visible;
-
-                minuteurJeu.Stop();
-                chronoJeu.Stop();
-                CanvaFond.Children.Clear();
-                
-                nbBouclier = 3;
-                nbScore = 0;
-                vitesseSpikeMan = 4;
-                tmps = 0;
-
-                blockTemps.Text = "Temps : " + TimeSpan.FromSeconds(tmps);
-                blockScore.Text = "Score : " + nbScore;
-
-                droite = false;
-                gauche = false;
-                accroupi = false;
-                lancer = false;
-                deplacementMarteau = false;
-                lesSpikeMan.Clear();
-                lesAbeillesHaut.Clear();
-                pause = false;
+                ResetVariables();
                 InitialisationMonde();
             }
             if (result == MessageBoxResult.No)
